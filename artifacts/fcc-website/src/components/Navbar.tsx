@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import logoImg from "@assets/ChatGPT_Image_May_14,_2026,_11_06_01_PM_1778796680823.png";
 
 const navLinks = [
@@ -9,6 +9,11 @@ const navLinks = [
   { href: "/about", label: "About" },
   { href: "/services", label: "Services" },
   { href: "/projects", label: "Projects" },
+  {
+    label: "Properties",
+    href: "/properties",
+  },
+  { href: "/careers", label: "Careers" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -27,6 +32,12 @@ export default function Navbar() {
     setMenuOpen(false);
   }, [location]);
 
+  // Prevent body scroll when menu is open
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [menuOpen]);
+
   return (
     <>
       <motion.header
@@ -35,16 +46,16 @@ export default function Navbar() {
         transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-[#0D1B38]/95 backdrop-blur-md shadow-[0_4px_32px_rgba(0,0,0,0.4)]"
+            ? "bg-[#0D1B38]/97 backdrop-blur-md shadow-[0_4px_32px_rgba(0,0,0,0.4)]"
             : "bg-transparent"
         }`}
       >
         <nav className="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-20">
           <Link href="/" data-testid="link-logo">
-            <img src={logoImg} alt="FCC Fore-City Construction" className="h-12 w-auto object-contain" />
+            <img src={logoImg} alt="FCC Fore-City Construction" className="h-11 w-auto object-contain" />
           </Link>
 
-          <ul className="hidden lg:flex items-center gap-8">
+          <ul className="hidden lg:flex items-center gap-6">
             {navLinks.map((link) => {
               const active = location === link.href;
               return (
@@ -52,8 +63,8 @@ export default function Navbar() {
                   <Link
                     href={link.href}
                     data-testid={`nav-${link.label.toLowerCase()}`}
-                    className={`relative text-sm font-semibold tracking-wide transition-colors duration-300 group ${
-                      active ? "text-[#C9A84C]" : "text-white/90 hover:text-[#C9A84C]"
+                    className={`relative text-xs font-bold tracking-wide transition-colors duration-300 group uppercase ${
+                      active ? "text-[#C9A84C]" : "text-white/85 hover:text-[#C9A84C]"
                     }`}
                   >
                     {link.label}
@@ -71,7 +82,7 @@ export default function Navbar() {
           <Link
             href="/contact"
             data-testid="btn-get-quote"
-            className="hidden lg:inline-flex items-center px-6 py-2.5 bg-[#C9A84C] text-[#0D1B38] text-sm font-bold rounded tracking-wide transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(201,168,76,0.4)]"
+            className="hidden lg:inline-flex items-center px-5 py-2.5 bg-[#C9A84C] text-[#0D1B38] text-xs font-black rounded tracking-wider uppercase transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(201,168,76,0.4)]"
           >
             Get a Quote
           </Link>
@@ -90,24 +101,26 @@ export default function Navbar() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-40 bg-[#0D1B38]/98 backdrop-blur-lg flex flex-col pt-24 px-8"
+            initial={{ opacity: 0, x: "100%" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "100%" }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="fixed inset-0 z-40 bg-[#0D1B38] flex flex-col pt-24 px-8 overflow-y-auto"
           >
-            <ul className="flex flex-col gap-2">
+            <ul className="flex flex-col gap-1">
               {navLinks.map((link, i) => (
                 <motion.li
                   key={link.href}
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.08 }}
+                  transition={{ delay: i * 0.07 }}
                 >
                   <Link
                     href={link.href}
                     data-testid={`mobile-nav-${link.label.toLowerCase()}`}
-                    className="block text-2xl font-bold text-white/90 hover:text-[#C9A84C] py-4 border-b border-white/10 transition-colors duration-200"
+                    className={`block text-2xl font-black py-4 border-b border-white/10 transition-colors duration-200 ${
+                      location === link.href ? "text-[#C9A84C]" : "text-white/90 hover:text-[#C9A84C]"
+                    }`}
                   >
                     {link.label}
                   </Link>
@@ -117,10 +130,11 @@ export default function Navbar() {
             <Link
               href="/contact"
               data-testid="mobile-btn-get-quote"
-              className="mt-8 inline-flex items-center justify-center px-8 py-4 bg-[#C9A84C] text-[#0D1B38] text-base font-bold rounded tracking-wide"
+              className="mt-8 inline-flex items-center justify-center px-8 py-4 bg-[#C9A84C] text-[#0D1B38] text-base font-black rounded tracking-wide"
             >
               Get a Quote
             </Link>
+            <div className="mt-8 text-[#C9A84C]/40 text-xs tracking-widest uppercase">Building Cities. Creating Futures.</div>
           </motion.div>
         )}
       </AnimatePresence>
