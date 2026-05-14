@@ -1,0 +1,101 @@
+Ultimate Interactive Website Design Prompt
+Interaction Philosophy: The website doesn't just respond - it anticipates, breathes, and remembers. Every element is aware of the user's presence.
+UI Excellence Standards:
+
+Hierarchy Through Motion: Important elements animate first with staggered delays (100-150ms gaps). Visual weight comes from timing, not just size
+Feedback Loops: Every action gets 3 responses: immediate micro-feedback (button press), transitional state (loading/processing), and completion confirmation
+Progressive Disclosure: Content reveals intelligently - hover previews, expandable sections, layered information that unfolds based on user interest
+Spatial Consistency: 8px base unit grid system. All spacing, sizing, and positioning multiplies from this base (16, 24, 32, 48, 64, 96px)
+
+Color Consistency System:
+
+Core Palette: 3 primary colors maximum + 2 accent colors
+
+Primary Dark: Deep background foundation (midnight blue, charcoal, deep purple)
+Primary Light: Elevated surfaces (20-30% lighter than background)
+Accent Bold: Call-to-action color (electric coral, neon cyan, vibrant amber)
+Accent Soft: Secondary interactions (40% opacity of bold accent)
+Neutral: Pure white/off-white for text, used sparingly
+
+
+Consistency Rules:
+
+All buttons use accent bold with 0.3s color transitions
+All cards/panels use primary light with glass morphism
+All text is neutral or 70% opacity neutral
+Hover states: +15% brightness, never new colors
+Active states: -10% brightness + slight scale (0.98)
+Disabled states: 30% opacity, no saturation change
+
+
+
+Animation Architecture:
+
+Page Load Choreography:
+
+Background gradient fades in (800ms)
+Logo/header slides down + fades (600ms, delay 200ms)
+Hero content cascades up (500ms each, stagger 150ms)
+Decorative elements drift in from edges (1000ms, delay 600ms)
+
+
+Scroll Animations:
+
+Elements fade + slide up when 20% visible (600ms ease-out)
+Parallax backgrounds move at 0.5x scroll speed
+Progress indicators that track scroll depth
+Section transitions with color shifts in background
+
+
+Micro-Interactions:
+
+Button hover: lift (translateY -2px) + glow shadow (400ms elastic ease)
+Card hover: scale 1.02 + rotate 1deg + glow border (300ms)
+Input focus: border color sweep animation left-to-right
+Toggle switches: bubble slides with spring physics (500ms)
+Menu open: stagger fade-in for items (80ms per item)
+
+
+
+Interactive Elements Catalog:
+
+Magnetic Buttons: Cursor within 100px pulls button 15px toward pointer with elastic ease
+Cursor Awareness: Cards tilt subtly (5-8deg) based on cursor position using 3D transforms
+Draggable Elements: Carousel cards, timeline scrubber, comparison sliders - all with momentum physics
+Particle Systems: Background particles that drift and react to cursor proximity (attract/repel)
+Liquid Morphing: SVG blob shapes that morph between states on interaction (800-1200ms)
+Gesture Support: Swipe for mobile navigation, pinch-zoom for galleries, long-press for context menus
+Sound Feedback: Subtle UI sounds (optional) - soft clicks, gentle whooshes, harmonic tones
+
+Advanced Interactivity:
+
+State Memory: Website remembers user preferences (dark/light mode, animation speed, last viewed section)
+Contextual Behavior: Time-of-day themes, scroll-depth content changes, interaction history affects recommendations
+Multi-Layer Hover: Different hover states at different depths - background reacts first, then border, then content
+Collision Detection: Floating elements that avoid each other, creating organic movement
+Physics Simulation: Springs, gravity, friction on draggable elements feel weighted and realistic
+
+Aesthetic Details:
+
+Texture: 3-5% noise grain overlay, subtle enough to add warmth without being obvious
+Depth: 5-layer parallax system (far background → mid background → content → foreground elements → floating UI)
+Glass Effects: Frosted glass (backdrop-filter: blur(12px)) on all elevated surfaces with 8% white overlay
+Gradients: Never linear - always radial or conic, with 3+ color stops, animated position shifts
+Shadows: Multi-layered (3 shadows per element): tight contact shadow + medium blur + large ambient glow
+Typography:
+
+Display: Ultra-light serif (200-300 weight) for headlines
+Body: Clean sans-serif (400 weight) with 1.6 line-height
+Scale: 1.250 (major third) ratio - 12px, 15px, 19px, 24px, 30px, 38px, 47px
+
+
+
+Performance Requirements:
+
+60fps animations minimum (use transform/opacity only, never width/height)
+Debounced scroll listeners (16ms threshold)
+Lazy-load animations (IntersectionObserver for scroll triggers)
+Reduced motion alternative for accessibility
+
+Emotional Experience:
+The website should feel like exploring a living, breathing space - premium without being cold, playful without being childish, innovative without being confusing. Every interaction should delight. The user should want to hover over everything just to see what happens.
