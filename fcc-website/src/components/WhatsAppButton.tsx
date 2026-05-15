@@ -20,11 +20,12 @@ export default function WhatsAppButton() {
   }, []);
 
   useEffect(() => {
-    if (visible) {
-      const t = setTimeout(() => setShowBubble(true), 3000);
-      return () => clearTimeout(t);
+    if (!visible) {
+      setShowBubble(false);
+      return;
     }
-    setShowBubble(false);
+    const t = setTimeout(() => setShowBubble(true), 3000);
+    return () => clearTimeout(t);
   }, [visible]);
 
   if (!visible) return null;
