@@ -1,5 +1,4 @@
 {
-  "rootDirectory": "fcc-website",
   "framework": "vite",
   "buildCommand": "npm run build",
   "outputDirectory": "dist/public",
