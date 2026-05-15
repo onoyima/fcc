@@ -30,10 +30,10 @@ interface TeamMember {
 const team: TeamMember[] = [
   {
     id: 1,
-    name: "Engr. Kola Ademola",
+    name: "Arch. Michael Ike",
     role: "Founder & Group CEO",
     department: "Executive",
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=80",
+    image: "https://www.facebook.com/photo.php?fbid=2891769704347565&type=3&mibextid=wwXIfr&rdid=tNSEitzqqcaXijsg&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1BY3sfUrxf%2F%3Fmibextid%3DwwXIfr#",
     shortBio: "Visionary leader with 25+ years in construction and real estate across Africa.",
     fullBio: "Engr. Kola Ademola founded FCC Fore-City Construction with a vision to transform Africa's built environment. With over 25 years of experience spanning construction, real estate development, and infrastructure projects across Nigeria, Ghana, and Kenya, he has led the company from a small contracting firm to one of Nigeria's most integrated construction and property technology companies. His leadership philosophy centers on integrity, innovation, and delivering exceptional value to clients and communities.",
     education: "B.Eng Civil Engineering, University of Lagos\nMBA, Lagos Business School\nCOREN Registered Engineer",

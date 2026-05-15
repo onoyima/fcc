@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from "react";
+import { api } from "@/lib/api";
 
 export type UserRole =
   | "super_admin"
@@ -123,6 +124,24 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const login = useCallback(async (email: string, password: string): Promise<boolean> => {
+    // Try API first
+    try {
+      const data: any = await api.post("/auth/login", { email, password });
+      if (data?.token && data?.user) {
+        const safeUser: AdminUser = {
+          id: String(data.user.id),
+          name: `${data.user.firstName} ${data.user.lastName}`,
+          email: data.user.email,
+          role: data.user.role,
+        };
+        setUser(safeUser);
+        setToken(data.token);
+        localStorage.setItem(SESSION_KEY, JSON.stringify({ userId: data.user.id, token: data.token }));
+        return true;
+      }
+    } catch {}
+
+    // Fallback to localStorage users
     const found = users.find((u) => u.email.toLowerCase() === email.toLowerCase() && u.password === password);
     if (!found) return false;
     const { password: _, ...safe } = found;

@@ -1,3 +1,5 @@
+import { api } from "@/lib/api";
+import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 import {
@@ -55,6 +57,20 @@ const featuredProperties = [
 
 export default function Home() {
   const { t } = useLang();
+
+  const [apiProperties, setApiProperties] = useState<any[]>([]);
+  const [apiLoading, setApiLoading] = useState(true);
+
+  useEffect(() => {
+    api.get<any>("/properties?featured=true")
+      .then((data: any) => {
+        if (data?.properties) {
+          setApiProperties(data.properties);
+        }
+      })
+      .catch(() => {})
+      .finally(() => setApiLoading(false));
+  }, []);
 
   const services = [
     { icon: <Building2 size={28} />, title: "Construction & Engineering", desc: "Residential, commercial, and infrastructure projects built to the highest international standards.", href: "/services" },
@@ -229,7 +245,7 @@ export default function Home() {
           </ScrollReveal>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {featuredProperties.map((p, i) => (
+            {(apiProperties.length > 0 ? apiProperties : featuredProperties).map((p, i) => (
               <ScrollReveal key={p.id} delay={i * 0.1}>
                 <Link href="/properties" className="group block rounded-sm border overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl h-full"
                   style={{ background: "var(--clr-card)", borderColor: "var(--clr-border)" }}>

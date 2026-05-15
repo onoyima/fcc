@@ -15,6 +15,7 @@ import payrollRouter from "./payroll";
 import contractorsRouter from "./contractors";
 import notificationsRouter from "./notifications";
 import chatsRouter from "./chats";
+import careersRouter from "./careers";
 
 const router: IRouter = Router();
 
@@ -34,5 +35,6 @@ router.use(payrollRouter);
 router.use(contractorsRouter);
 router.use(notificationsRouter);
 router.use(chatsRouter);
+router.use(careersRouter);
 
 export default router;

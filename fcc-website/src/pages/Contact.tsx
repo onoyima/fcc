@@ -6,6 +6,7 @@ import { Phone, Mail, MapPin, Globe, MessageCircle, Send, Clock } from "lucide-r
 import { AnimatedBlobs, FloatingShapes } from "@/components/AnimatedBackground";
 import brandImg from "@assets/ChatGPT_Image_May_14,_2026,_11_05_45_PM_1778796680819.png";
 import { useLang } from "@/contexts/LanguageContext";
+import { api } from "@/lib/api";
 
 const offices = [
   { city: "Lagos (HQ)", address: "Victoria Island, Lagos, Nigeria", phone: "+234 806 851 5179" },
@@ -29,11 +30,16 @@ export default function Contact() {
   });
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    // Save to localStorage (backup)
     const submissions = JSON.parse(localStorage.getItem("fcc_contact_submissions") || "[]");
     submissions.push({ ...formData, timestamp: new Date().toISOString() });
     localStorage.setItem("fcc_contact_submissions", JSON.stringify(submissions));
+    // Submit to API
+    try {
+      await api.post("/properties/contact", formData).catch(() => {});
+    } catch {}
     setSubmitted(true);
   };
 

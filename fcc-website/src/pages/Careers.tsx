@@ -10,6 +10,7 @@ import {
 import { AnimatedBlobs, FloatingShapes } from "@/components/AnimatedBackground";
 import brandImg from "@assets/ChatGPT_Image_May_14,_2026,_11_05_45_PM_1778796680819.png";
 import { useLang } from "@/contexts/LanguageContext";
+import { api } from "@/lib/api";
 
 type FormTab = "job" | "labor" | "contractor";
 
@@ -41,13 +42,49 @@ export default function Careers() {
   const [expandedJob, setExpandedJob] = useState<number | null>(null);
   const [formTab, setFormTab] = useState<FormTab>("job");
   const [submitted, setSubmitted] = useState(false);
+  const [form, setForm] = useState({
+    firstName: "", lastName: "", email: "", phone: "",
+    position: "", coverLetter: "",
+    skill: "", experience: "",
+    companyName: "", contactPerson: "", specialization: "",
+  });
+
+  const update = (field: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
+    setForm((f) => ({ ...f, [field]: e.target.value }));
 
   const filtered = activeDept === "All Departments" ? jobs : jobs.filter((j) => j.dept === activeDept);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    const payload: Record<string, string> = { applicationType: formTab, timestamp: new Date().toISOString() };
+    if (formTab === "job") {
+      payload.firstName = form.firstName;
+      payload.lastName = form.lastName;
+      payload.email = form.email;
+      payload.phone = form.phone;
+      payload.positionApplied = form.position;
+      payload.coverLetter = form.coverLetter;
+    } else if (formTab === "labor") {
+      const parts = form.firstName.split(" ");
+      payload.firstName = parts[0] || form.firstName;
+      payload.lastName = parts.slice(1).join(" ") || "N/A";
+      payload.phone = form.phone;
+      payload.skill = form.skill;
+      payload.experienceYears = form.experience;
+    } else if (formTab === "contractor") {
+      payload.companyName = form.companyName;
+      payload.contactPerson = form.contactPerson;
+      payload.email = form.email;
+      payload.phone = form.phone;
+      payload.specialization = form.specialization;
+    }
+    // Save to localStorage (backup)
     const submissions = JSON.parse(localStorage.getItem("fcc_career_submissions") || "[]");
-    submissions.push({ type: formTab, timestamp: new Date().toISOString() });
+    submissions.push(payload);
     localStorage.setItem("fcc_career_submissions", JSON.stringify(submissions));
+    // Submit to API
+    try {
+      await api.post("/careers/apply", payload).catch(() => {});
+    } catch {}
     setSubmitted(true);
   };
 
@@ -250,34 +287,44 @@ export default function Careers() {
               {formTab === "job" && (
                 <>
                   <div className="grid grid-cols-2 gap-4">
-                    {[{ l: "First Name", p: "John" }, { l: "Last Name", p: "Doe" }].map((f) => (
-                      <div key={f.l}>
-                        <label className="block text-xs font-bold uppercase tracking-wide mb-2" style={{ color: "var(--clr-text)" }}>{f.l}</label>
-                        <input type="text" placeholder={f.p} className="w-full px-4 py-3 border rounded text-sm outline-none"
-                          style={{ borderColor: "var(--clr-border)", background: "var(--clr-bg-alt)", color: "var(--clr-text)" }} />
-                      </div>
-                    ))}
-                  </div>
-                  {[
-                    { l: t.contact.emailAddress, p: "john@example.com", tp: "email" },
-                    { l: t.contact.phoneNumber, p: "+234...", tp: "tel" },
-                  ].map((f) => (
-                    <div key={f.l}>
-                      <label className="block text-xs font-bold uppercase tracking-wide mb-2" style={{ color: "var(--clr-text)" }}>{f.l}</label>
-                      <input type={f.tp} placeholder={f.p} className="w-full px-4 py-3 border rounded text-sm outline-none"
+                    <div>
+                      <label className="block text-xs font-bold uppercase tracking-wide mb-2" style={{ color: "var(--clr-text)" }}>First Name</label>
+                      <input type="text" placeholder="John" value={form.firstName} onChange={update("firstName")}
+                        className="w-full px-4 py-3 border rounded text-sm outline-none"
                         style={{ borderColor: "var(--clr-border)", background: "var(--clr-bg-alt)", color: "var(--clr-text)" }} />
                     </div>
-                  ))}
+                    <div>
+                      <label className="block text-xs font-bold uppercase tracking-wide mb-2" style={{ color: "var(--clr-text)" }}>Last Name</label>
+                      <input type="text" placeholder="Doe" value={form.lastName} onChange={update("lastName")}
+                        className="w-full px-4 py-3 border rounded text-sm outline-none"
+                        style={{ borderColor: "var(--clr-border)", background: "var(--clr-bg-alt)", color: "var(--clr-text)" }} />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wide mb-2" style={{ color: "var(--clr-text)" }}>{t.contact.emailAddress}</label>
+                    <input type="email" placeholder="john@example.com" value={form.email} onChange={update("email")}
+                      className="w-full px-4 py-3 border rounded text-sm outline-none"
+                      style={{ borderColor: "var(--clr-border)", background: "var(--clr-bg-alt)", color: "var(--clr-text)" }} />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wide mb-2" style={{ color: "var(--clr-text)" }}>{t.contact.phoneNumber}</label>
+                    <input type="tel" placeholder="+234..." value={form.phone} onChange={update("phone")}
+                      className="w-full px-4 py-3 border rounded text-sm outline-none"
+                      style={{ borderColor: "var(--clr-border)", background: "var(--clr-bg-alt)", color: "var(--clr-text)" }} />
+                  </div>
                   <div>
                     <label className="block text-xs font-bold uppercase tracking-wide mb-2" style={{ color: "var(--clr-text)" }}>Position Applied For</label>
-                    <select className="w-full px-4 py-3 border rounded text-sm outline-none"
+                    <select value={form.position} onChange={update("position")}
+                      className="w-full px-4 py-3 border rounded text-sm outline-none"
                       style={{ borderColor: "var(--clr-border)", background: "var(--clr-bg-alt)", color: "var(--clr-text)" }}>
-                      {jobs.map((j) => <option key={j.id}>{j.title}</option>)}
+                      <option value="">Select a position</option>
+                      {jobs.map((j) => <option key={j.id} value={j.title}>{j.title}</option>)}
                     </select>
                   </div>
                   <div>
                     <label className="block text-xs font-bold uppercase tracking-wide mb-2" style={{ color: "var(--clr-text)" }}>Cover Letter</label>
-                    <textarea rows={4} placeholder="Why do you want to join FCC?" className="w-full px-4 py-3 border rounded text-sm outline-none resize-none"
+                    <textarea rows={4} placeholder="Why do you want to join FCC?" value={form.coverLetter} onChange={update("coverLetter")}
+                      className="w-full px-4 py-3 border rounded text-sm outline-none resize-none"
                       style={{ borderColor: "var(--clr-border)", background: "var(--clr-bg-alt)", color: "var(--clr-text)" }} />
                   </div>
                   <div className="border-2 border-dashed rounded-sm p-8 text-center cursor-pointer hover:opacity-80 transition-opacity"
@@ -291,28 +338,34 @@ export default function Careers() {
 
               {formTab === "labor" && (
                 <>
-                  {[
-                    { l: t.contact.fullName, p: "Your name", tp: "text" },
-                    { l: t.contact.phoneNumber, p: "+234...", tp: "tel" },
-                  ].map((f) => (
-                    <div key={f.l}>
-                      <label className="block text-xs font-bold uppercase tracking-wide mb-2" style={{ color: "var(--clr-text)" }}>{f.l}</label>
-                      <input type={f.tp} placeholder={f.p} className="w-full px-4 py-3 border rounded text-sm outline-none"
-                        style={{ borderColor: "var(--clr-border)", background: "var(--clr-bg-alt)", color: "var(--clr-text)" }} />
-                    </div>
-                  ))}
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wide mb-2" style={{ color: "var(--clr-text)" }}>{t.contact.fullName}</label>
+                    <input type="text" placeholder="Your name" value={form.firstName} onChange={update("firstName")}
+                      className="w-full px-4 py-3 border rounded text-sm outline-none"
+                      style={{ borderColor: "var(--clr-border)", background: "var(--clr-bg-alt)", color: "var(--clr-text)" }} />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wide mb-2" style={{ color: "var(--clr-text)" }}>{t.contact.phoneNumber}</label>
+                    <input type="tel" placeholder="+234..." value={form.phone} onChange={update("phone")}
+                      className="w-full px-4 py-3 border rounded text-sm outline-none"
+                      style={{ borderColor: "var(--clr-border)", background: "var(--clr-bg-alt)", color: "var(--clr-text)" }} />
+                  </div>
                   <div>
                     <label className="block text-xs font-bold uppercase tracking-wide mb-2" style={{ color: "var(--clr-text)" }}>Primary Skill</label>
-                    <select className="w-full px-4 py-3 border rounded text-sm outline-none"
+                    <select value={form.skill} onChange={update("skill")}
+                      className="w-full px-4 py-3 border rounded text-sm outline-none"
                       style={{ borderColor: "var(--clr-border)", background: "var(--clr-bg-alt)", color: "var(--clr-text)" }}>
-                      {artisanCategories.map((c) => <option key={c.name}>{c.name}</option>)}
+                      <option value="">Select a skill</option>
+                      {artisanCategories.map((c) => <option key={c.name} value={c.name.toLowerCase().replace(/\s+&\s+/g, "_").replace(/\s+/g, "_")}>{c.name}</option>)}
                     </select>
                   </div>
                   <div>
                     <label className="block text-xs font-bold uppercase tracking-wide mb-2" style={{ color: "var(--clr-text)" }}>Years of Experience</label>
-                    <select className="w-full px-4 py-3 border rounded text-sm outline-none"
+                    <select value={form.experience} onChange={update("experience")}
+                      className="w-full px-4 py-3 border rounded text-sm outline-none"
                       style={{ borderColor: "var(--clr-border)", background: "var(--clr-bg-alt)", color: "var(--clr-text)" }}>
-                      {["0–1 years", "1–3 years", "3–5 years", "5–10 years", "10+ years"].map((y) => <option key={y}>{y}</option>)}
+                      <option value="">Select years</option>
+                      {["0-1", "1-3", "3-5", "5-10", "10+"].map((y) => <option key={y} value={y}>{y} years</option>)}
                     </select>
                   </div>
                 </>
@@ -320,21 +373,34 @@ export default function Careers() {
 
               {formTab === "contractor" && (
                 <>
-                  {[
-                    { l: "Company Name", p: "Your company", tp: "text" },
-                    { l: "Contact Person", p: "Your name", tp: "text" },
-                    { l: t.contact.emailAddress, p: "company@email.com", tp: "email" },
-                    { l: t.contact.phoneNumber, p: "+234...", tp: "tel" },
-                  ].map((f) => (
-                    <div key={f.l}>
-                      <label className="block text-xs font-bold uppercase tracking-wide mb-2" style={{ color: "var(--clr-text)" }}>{f.l}</label>
-                      <input type={f.tp} placeholder={f.p} className="w-full px-4 py-3 border rounded text-sm outline-none"
-                        style={{ borderColor: "var(--clr-border)", background: "var(--clr-bg-alt)", color: "var(--clr-text)" }} />
-                    </div>
-                  ))}
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wide mb-2" style={{ color: "var(--clr-text)" }}>Company Name</label>
+                    <input type="text" placeholder="Your company" value={form.companyName} onChange={update("companyName")}
+                      className="w-full px-4 py-3 border rounded text-sm outline-none"
+                      style={{ borderColor: "var(--clr-border)", background: "var(--clr-bg-alt)", color: "var(--clr-text)" }} />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wide mb-2" style={{ color: "var(--clr-text)" }}>Contact Person</label>
+                    <input type="text" placeholder="Your name" value={form.contactPerson} onChange={update("contactPerson")}
+                      className="w-full px-4 py-3 border rounded text-sm outline-none"
+                      style={{ borderColor: "var(--clr-border)", background: "var(--clr-bg-alt)", color: "var(--clr-text)" }} />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wide mb-2" style={{ color: "var(--clr-text)" }}>{t.contact.emailAddress}</label>
+                    <input type="email" placeholder="company@email.com" value={form.email} onChange={update("email")}
+                      className="w-full px-4 py-3 border rounded text-sm outline-none"
+                      style={{ borderColor: "var(--clr-border)", background: "var(--clr-bg-alt)", color: "var(--clr-text)" }} />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wide mb-2" style={{ color: "var(--clr-text)" }}>{t.contact.phoneNumber}</label>
+                    <input type="tel" placeholder="+234..." value={form.phone} onChange={update("phone")}
+                      className="w-full px-4 py-3 border rounded text-sm outline-none"
+                      style={{ borderColor: "var(--clr-border)", background: "var(--clr-bg-alt)", color: "var(--clr-text)" }} />
+                  </div>
                   <div>
                     <label className="block text-xs font-bold uppercase tracking-wide mb-2" style={{ color: "var(--clr-text)" }}>Area of Specialisation</label>
-                    <textarea rows={3} placeholder="Describe your core services..." className="w-full px-4 py-3 border rounded text-sm outline-none resize-none"
+                    <textarea rows={3} placeholder="Describe your core services..." value={form.specialization} onChange={update("specialization")}
+                      className="w-full px-4 py-3 border rounded text-sm outline-none resize-none"
                       style={{ borderColor: "var(--clr-border)", background: "var(--clr-bg-alt)", color: "var(--clr-text)" }} />
                   </div>
                 </>

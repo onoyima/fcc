@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -12,6 +12,7 @@ import {
 import { AnimatedBlobs, FloatingShapes } from "@/components/AnimatedBackground";
 import brandImg from "@assets/ChatGPT_Image_May_14,_2026,_11_05_45_PM_1778796680819.png";
 import { useLang } from "@/contexts/LanguageContext";
+import { api } from "@/lib/api";
 
 type ListingType = "All" | "For Sale" | "For Rent" | "Land" | "Commercial" | "Shortlet";
 
@@ -85,6 +86,7 @@ const listings = [
 
 export default function Properties() {
   const { t } = useLang();
+  const [apiProperties, setApiProperties] = useState<any[]>([]);
   const [activeType, setActiveType] = useState<ListingType>("All");
   const [search, setSearch] = useState("");
   const [location, setLocation] = useState("All Locations");
@@ -95,7 +97,31 @@ export default function Properties() {
   const [inspectData, setInspectData] = useState({ name: "", phone: "", date: "" });
   const [inspectSubmitted, setInspectSubmitted] = useState(false);
 
-  const filtered = listings.filter((l) => {
+  useEffect(() => {
+    api.get<any>("/properties")
+      .then((data: any) => {
+        if (data?.properties) setApiProperties(data.properties);
+      })
+      .catch(() => {});
+  }, []);
+
+  const activeListings = apiProperties.length > 0
+    ? apiProperties.map((p: any) => ({
+        id: p.id,
+        title: p.title,
+        type: (p.type === "for_sale" ? "For Sale" : p.type === "for_rent" ? "For Rent" : p.type === "land" ? "Land" : p.type === "commercial" ? "Commercial" : "Shortlet") as ListingType,
+        location: p.location,
+        price: p.priceLabel || `₦${Number(p.price).toLocaleString()}`,
+        beds: p.bedrooms || 0,
+        baths: p.bathrooms || 0,
+        sqm: p.sqm || 0,
+        featured: p.featured || false,
+        tag: p.tag || "",
+        images: p.images || [],
+      }))
+    : listings;
+
+  const filtered = activeListings.filter((l) => {
     const typeMatch = activeType === "All" || l.type === activeType;
     const searchMatch = !search || l.title.toLowerCase().includes(search.toLowerCase()) || l.location.toLowerCase().includes(search.toLowerCase());
     const locMatch = location === "All Locations" || l.location.toLowerCase().includes(location.toLowerCase());
@@ -234,7 +260,7 @@ export default function Properties() {
                     style={{ background: "var(--clr-card)", borderColor: "var(--clr-border)" }}
                     data-testid={`listing-card-${listing.id}`}>
                     <ImageSlider
-                      images={propertyImages[listing.id] || [brandImg]}
+                      images={listing.images || propertyImages[listing.id] || [brandImg]}
                       className="h-52 w-full"
                       overlay={
                         <>
