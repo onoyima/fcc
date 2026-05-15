@@ -27,6 +27,9 @@ node_modules
 !.vscode/launch.json
 !.vscode/extensions.json
 
+# environment
+.env
+
 # misc
 /.sass-cache
 /connect.lock
@@ -46,4 +49,7 @@ Thumbs.db
 
 # Replit
 .cache/
-.local/
+.replit-artifact/
+
+# Contains DB credentials - secret
+api-server/dffd.md
