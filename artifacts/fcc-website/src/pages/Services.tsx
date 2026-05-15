@@ -3,6 +3,8 @@ import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Link } from "wouter";
 import { Building2, Home, Shield, Wrench, Users, ArrowRight, CheckCircle } from "lucide-react";
+import { AnimatedBlobs, FloatingShapes, AnimatedGrid } from "@/components/AnimatedBackground";
+import brandImg from "@assets/ChatGPT_Image_May_14,_2026,_11_05_45_PM_1778796680819.png";
 
 const divisions = [
   {
@@ -18,187 +20,168 @@ const divisions = [
       "Industrial projects",
       "School & hospital construction",
       "Warehouse development",
-      "Smart home construction",
-      "Building renovation & remodeling",
-      "Structural & electrical engineering",
-      "Project supervision & site inspections",
-      "Government contracts",
+      "Foundation & structural engineering",
     ],
   },
   {
     icon: <Home size={40} />,
     title: "Real Estate & Property",
-    subtitle: "Your Property, Our Expertise",
-    description: "Our real estate division connects buyers, sellers, investors, and renters with premium properties across Nigeria. From land acquisition to luxury estate sales, we provide comprehensive property solutions backed by deep market knowledge.",
+    subtitle: "Invest. Own. Prosper.",
+    description: "From premium land sales to luxury apartments, our real estate division connects buyers, investors, and developers to the best opportunities in Nigeria's fastest-growing cities. We handle everything from listing to legal title transfer.",
     services: [
-      "Land sales & property sales",
-      "House rentals & office leasing",
-      "Shortlet apartments",
-      "Luxury property sales",
-      "Estate agency services",
-      "Property verification & documentation",
-      "Property investment consulting",
-      "Property flipping",
-      "Property inspections & valuation",
+      "Land sales & acquisition",
+      "Residential property sales",
+      "Commercial property leasing",
+      "Estate & housing development",
+      "Property investment advisory",
+      "Title documentation & transfer",
+      "Property valuation",
+      "Off-plan property sales",
     ],
   },
   {
     icon: <Shield size={40} />,
     title: "Facility & Property Management",
-    subtitle: "Seamless Estate Operations",
-    description: "We take the complexity out of estate and property management. From tenant onboarding to maintenance coordination, our technology-powered management platform ensures every property under our care performs optimally.",
+    subtitle: "We Manage. You Profit.",
+    description: "Professional management of estates, commercial buildings, and mixed-use developments. We handle tenant relations, maintenance schedules, service charge collection, security, and full-facility operations so you don't have to.",
     services: [
-      "Tenant onboarding & screening",
-      "Lease agreement management",
-      "Rent collection & reminders",
-      "Maintenance requests & dispatch",
-      "Landlord reporting & analytics",
+      "Estate & facility management",
+      "Tenant onboarding & relations",
+      "Lease management & renewals",
+      "Maintenance & repairs",
+      "Security & access management",
       "Utility management",
-      "Security & CCTV coordination",
-      "Cleaning & waste management",
-      "Service charge management",
-      "Visitor management systems",
+      "Service charge administration",
+      "Property inspection & reporting",
     ],
   },
   {
     icon: <Wrench size={40} />,
     title: "Interior & Finishing",
     subtitle: "Spaces That Inspire",
-    description: "Our interior design and finishing division transforms raw structures into exceptional living and working environments. From concept to completion, we deliver aesthetics that match the ambition of every client.",
+    description: "From concept to completion, our interior design and finishing division transforms raw spaces into stunning, functional environments. We work across residential, commercial, and hospitality sectors with meticulous attention to detail.",
     services: [
-      "Interior design consultation",
-      "Full-space fit-out & furnishing",
-      "POP installation & ceiling design",
-      "Tiling & flooring solutions",
-      "Painting & wall finishing",
-      "Kitchen & bathroom design",
-      "Lighting design & installation",
-      "Custom furniture & joinery",
-      "Smart home integration",
+      "Interior design & space planning",
+      "Joinery & fitted furniture",
+      "Suspended ceilings & POP",
+      "Tiling & flooring",
+      "Painting & wallcoverings",
+      "Electrical & MEP fit-out",
+      "Kitchen & bathroom fitting",
+      "Landscaping & outdoor design",
     ],
   },
   {
     icon: <Users size={40} />,
-    title: "Workforce & Equipment",
-    subtitle: "Skilled Hands. Powerful Machines.",
-    description: "We maintain Africa's most comprehensive database of skilled construction artisans and a fleet of heavy equipment — connecting projects with the right people and machinery through our digital labor management platform.",
+    title: "Workforce & Equipment Solutions",
+    subtitle: "Nigeria's Construction Talent Hub",
+    description: "We maintain Africa's most comprehensive database of certified construction professionals — from civil engineers to masons, electricians to welders. We supply workforce on contract, project, or permanent basis, with full background verification.",
     services: [
-      "Skilled artisan database & deployment",
-      "Site supervisor & engineer staffing",
-      "Payroll & attendance management",
-      "Equipment inventory tracking",
-      "Maintenance scheduling",
-      "Fuel & logistics management",
-      "Equipment rental system",
-      "GPS tracking for heavy machinery",
-      "Excavator & concrete mixer management",
-      "Truck fleet management",
+      "Skilled artisan supply",
+      "Civil & structural engineers",
+      "Architect & surveyor placement",
+      "Heavy equipment hire",
+      "Site safety officers",
+      "Construction supervisors",
+      "Fleet & transport management",
+      "Training & skill certification",
     ],
   },
 ];
 
 export default function Services() {
   return (
-    <div className="min-h-screen bg-white overflow-x-hidden">
+    <div style={{ background: "var(--clr-bg)" }}>
       <Navbar />
 
-      {/* Hero */}
-      <section className="bg-[#0D1B38] pt-40 pb-24 relative overflow-hidden">
-        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-48 bg-[#C9A84C]" />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
+      {/* ── HERO ─────────────────────────────────── */}
+      <section className="relative pt-32 pb-24 overflow-hidden" style={{ background: "var(--clr-primary)" }}>
+        <div className="absolute inset-0 opacity-8" style={{
+          backgroundImage: `url(${brandImg})`, backgroundSize: "cover", backgroundPosition: "center",
+        }} />
+        <div className="absolute inset-0" style={{ background: "color-mix(in srgb, var(--clr-primary) 90%, transparent)" }} />
+        <AnimatedBlobs intensity={0.05} />
+        <FloatingShapes />
+
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-10">
           <div className="flex items-center gap-3 mb-4">
-            <span className="h-px w-12 bg-[#C9A84C]" />
-            <span className="text-[#C9A84C] text-xs font-bold tracking-[0.25em] uppercase">Our Services</span>
+            <div className="h-px w-10" style={{ background: "var(--clr-accent)" }} />
+            <span className="text-xs font-black tracking-widest uppercase" style={{ color: "var(--clr-accent)" }}>Our Services</span>
           </div>
-          <h1 className="text-5xl lg:text-7xl font-black text-white leading-tight max-w-3xl">
-            Five Divisions.<br /><span className="text-[#C9A84C]">One Integrated</span><br />Platform.
+          <h1 className="text-5xl lg:text-6xl font-black text-white mb-6 max-w-3xl">
+            Five Divisions.<br />
+            <span style={{ color: "var(--clr-accent)" }}>Unlimited Possibilities.</span>
           </h1>
-          <p className="mt-6 text-white/60 text-lg max-w-xl leading-relaxed">
-            Every service you need, from ground-breaking to final handover — delivered by one trusted partner with the scale to match your ambition.
+          <p className="text-lg max-w-2xl leading-relaxed" style={{ color: "rgba(255,255,255,0.7)" }}>
+            From breaking ground to property management, FCC covers every stage of the built-environment cycle under one integrated, expert-led brand.
           </p>
         </div>
       </section>
 
-      {/* Division Cards Overview */}
-      <section className="py-16 bg-[#F5F7FA]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            {divisions.map((d, i) => (
-              <ScrollReveal key={d.title} delay={i * 0.08}>
-                <a href={`#division-${i}`} className="group block text-center p-6 bg-white rounded-sm border border-gray-100 hover:border-[#C9A84C]/40 hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
-                  <div className="text-[#0D1B38] group-hover:text-[#C9A84C] transition-colors duration-300 flex justify-center mb-3">
-                    {d.icon}
+      {/* ── DIVISIONS ─────────────────────────── */}
+      <section className="py-8" style={{ background: "var(--clr-bg)" }}>
+        {divisions.map((div, i) => (
+          <ScrollReveal key={div.title}>
+            <div className={`py-20 border-b ${i % 2 === 1 ? "" : ""}`}
+              style={{
+                background: i % 2 === 0 ? "var(--clr-bg)" : "var(--clr-bg-alt)",
+                borderColor: "var(--clr-border)",
+              }}>
+              <div className="max-w-7xl mx-auto px-6 lg:px-10">
+                <div className={`grid grid-cols-1 lg:grid-cols-2 gap-16 items-center ${i % 2 === 1 ? "lg:flex-row-reverse" : ""}`}>
+                  <div className={i % 2 === 1 ? "lg:order-2" : ""}>
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="h-px w-8" style={{ background: "var(--clr-accent)" }} />
+                      <span className="text-xs font-bold tracking-widest uppercase" style={{ color: "var(--clr-accent)" }}>Division {String(i + 1).padStart(2, "0")}</span>
+                    </div>
+                    <div className="w-16 h-16 rounded-sm flex items-center justify-center mb-6"
+                      style={{ background: "var(--clr-primary)", color: "var(--clr-accent)" }}>
+                      {div.icon}
+                    </div>
+                    <h2 className="text-3xl font-black mb-2" style={{ color: "var(--clr-primary)" }}>{div.title}</h2>
+                    <p className="text-sm font-bold tracking-wide mb-4" style={{ color: "var(--clr-accent)" }}>{div.subtitle}</p>
+                    <p className="text-base leading-relaxed mb-8" style={{ color: "var(--clr-text-muted)" }}>{div.description}</p>
+                    <Link href="/contact" data-testid={`btn-service-quote-${i}`}
+                      className="inline-flex items-center gap-2 px-6 py-3 font-black rounded text-sm tracking-wide transition-all duration-300 hover:-translate-y-0.5"
+                      style={{ background: "var(--clr-accent)", color: "var(--clr-accent-text)" }}>
+                      Get a Quote <ArrowRight size={14} />
+                    </Link>
                   </div>
-                  <p className="text-xs font-bold text-[#0D1B38] leading-tight">{d.title}</p>
-                </a>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
+
+                  <div className={i % 2 === 1 ? "lg:order-1" : ""}>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {div.services.map((svc) => (
+                        <div key={svc} className="flex items-center gap-3 p-4 rounded-sm border transition-all duration-200 hover:border-opacity-70"
+                          style={{ background: "var(--clr-card)", borderColor: "var(--clr-border)" }}>
+                          <CheckCircle size={16} className="flex-shrink-0" style={{ color: "var(--clr-accent)" }} />
+                          <span className="text-sm font-medium" style={{ color: "var(--clr-text)" }}>{svc}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ScrollReveal>
+        ))}
       </section>
 
-      {/* Individual Divisions */}
-      {divisions.map((d, i) => (
-        <section
-          key={d.title}
-          id={`division-${i}`}
-          className={`py-28 ${i % 2 === 0 ? "bg-white" : "bg-[#F5F7FA]"}`}
-        >
-          <div className="max-w-7xl mx-auto px-6 lg:px-10">
-            <div className={`grid grid-cols-1 lg:grid-cols-2 gap-16 items-center ${i % 2 !== 0 ? "lg:grid-flow-col-dense" : ""}`}>
-              <ScrollReveal direction={i % 2 === 0 ? "left" : "right"}>
-                <div className={`${i % 2 !== 0 ? "lg:col-start-2" : ""}`}>
-                  <div className="w-20 h-20 bg-[#0D1B38] rounded-sm flex items-center justify-center text-[#C9A84C] mb-8">
-                    {d.icon}
-                  </div>
-                  <div className="flex items-center gap-3 mb-3">
-                    <span className="h-px w-12 bg-[#C9A84C]" />
-                    <span className="text-[#C9A84C] text-xs font-bold tracking-[0.2em] uppercase">{d.subtitle}</span>
-                  </div>
-                  <h2 className="text-4xl lg:text-5xl font-black text-[#0D1B38] mb-6">{d.title}</h2>
-                  <p className="text-gray-600 leading-relaxed mb-10">{d.description}</p>
-                  <Link
-                    href="/contact"
-                    data-testid={`btn-service-cta-${i}`}
-                    className="inline-flex items-center gap-2 px-8 py-4 bg-[#0D1B38] text-white font-bold rounded text-sm tracking-wide transition-all duration-300 hover:-translate-y-1 hover:bg-[#C9A84C] hover:text-[#0D1B38] hover:shadow-lg"
-                  >
-                    Request a Quote <ArrowRight size={16} />
-                  </Link>
-                </div>
-              </ScrollReveal>
-
-              <ScrollReveal direction={i % 2 === 0 ? "right" : "left"} delay={0.15}>
-                <div className={`bg-[#0D1B38] rounded-sm p-10 ${i % 2 !== 0 ? "lg:col-start-1 lg:row-start-1" : ""}`}>
-                  <h3 className="text-[#C9A84C] font-bold text-xs tracking-widest uppercase mb-8">Services Include</h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {d.services.map((s) => (
-                      <div key={s} className="flex items-start gap-3">
-                        <CheckCircle size={15} className="text-[#C9A84C] mt-0.5 flex-shrink-0" />
-                        <span className="text-white/70 text-sm">{s}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </ScrollReveal>
-            </div>
-          </div>
-        </section>
-      ))}
-
-      {/* CTA */}
-      <section className="py-24 bg-[#C9A84C]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 text-center">
+      {/* ── CTA ───────────────────────────────── */}
+      <section className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0" style={{ background: "var(--clr-gradient)" }} />
+        <AnimatedBlobs intensity={0.07} />
+        <div className="relative max-w-4xl mx-auto px-6 text-center">
           <ScrollReveal>
-            <h2 className="text-4xl lg:text-5xl font-black text-[#0D1B38] mb-6">Not Sure Which Service You Need?</h2>
-            <p className="text-[#0D1B38]/70 text-lg mb-10 max-w-xl mx-auto">
-              Our expert consultants will assess your project and recommend the perfect combination of FCC services.
+            <h2 className="text-4xl font-black text-white mb-4">
+              Need a Custom<br /><span style={{ color: "var(--clr-accent)" }}>Service Package?</span>
+            </h2>
+            <p className="text-lg mb-8" style={{ color: "rgba(255,255,255,0.65)" }}>
+              We tailor our services to your specific project requirements and budget. Talk to our team today.
             </p>
-            <Link
-              href="/contact"
-              data-testid="btn-services-cta"
-              className="inline-flex items-center gap-2 px-10 py-5 bg-[#0D1B38] text-white font-black rounded text-sm tracking-wide transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(13,27,56,0.4)]"
-            >
-              Speak to a Consultant <ArrowRight size={16} />
+            <Link href="/contact" data-testid="btn-services-cta"
+              className="inline-flex items-center gap-2 px-10 py-4 font-black rounded text-sm tracking-wide transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+              style={{ background: "var(--clr-accent)", color: "var(--clr-accent-text)" }}>
+              Talk to Our Team <ArrowRight size={16} />
             </Link>
           </ScrollReveal>
         </div>

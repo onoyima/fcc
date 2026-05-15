@@ -1,18 +1,16 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import logoImg from "@assets/ChatGPT_Image_May_14,_2026,_11_06_01_PM_1778796680823.png";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/services", label: "Services" },
   { href: "/projects", label: "Projects" },
-  {
-    label: "Properties",
-    href: "/properties",
-  },
+  { href: "/properties", label: "Properties" },
   { href: "/careers", label: "Careers" },
   { href: "/contact", label: "Contact" },
 ];
@@ -28,11 +26,8 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    setMenuOpen(false);
-  }, [location]);
+  useEffect(() => { setMenuOpen(false); }, [location]);
 
-  // Prevent body scroll when menu is open
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -44,11 +39,14 @@ export default function Navbar() {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? "bg-[#0D1B38]/97 backdrop-blur-md shadow-[0_4px_32px_rgba(0,0,0,0.4)]"
-            : "bg-transparent"
-        }`}
+        className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+        style={{
+          background: scrolled
+            ? `color-mix(in srgb, var(--clr-primary) 97%, transparent)`
+            : "transparent",
+          backdropFilter: scrolled ? "blur(16px)" : "none",
+          boxShadow: scrolled ? "0 4px 32px rgba(0,0,0,0.4)" : "none",
+        }}
       >
         <nav className="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-20">
           <Link href="/" data-testid="link-logo">
@@ -63,15 +61,16 @@ export default function Navbar() {
                   <Link
                     href={link.href}
                     data-testid={`nav-${link.label.toLowerCase()}`}
-                    className={`relative text-xs font-bold tracking-wide transition-colors duration-300 group uppercase ${
-                      active ? "text-[#C9A84C]" : "text-white/85 hover:text-[#C9A84C]"
-                    }`}
+                    className="relative text-xs font-bold tracking-wide transition-colors duration-300 group uppercase"
+                    style={{ color: active ? "var(--clr-accent)" : "rgba(255,255,255,0.85)" }}
                   >
                     {link.label}
                     <span
-                      className={`absolute -bottom-1 left-0 h-0.5 bg-[#C9A84C] transition-all duration-300 ${
-                        active ? "w-full" : "w-0 group-hover:w-full"
-                      }`}
+                      className="absolute -bottom-1 left-0 h-0.5 transition-all duration-300"
+                      style={{
+                        background: "var(--clr-accent)",
+                        width: active ? "100%" : "0%",
+                      }}
                     />
                   </Link>
                 </li>
@@ -79,22 +78,33 @@ export default function Navbar() {
             })}
           </ul>
 
-          <Link
-            href="/contact"
-            data-testid="btn-get-quote"
-            className="hidden lg:inline-flex items-center px-5 py-2.5 bg-[#C9A84C] text-[#0D1B38] text-xs font-black rounded tracking-wider uppercase transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(201,168,76,0.4)]"
-          >
-            Get a Quote
-          </Link>
+          <div className="hidden lg:flex items-center gap-3">
+            <ThemeToggle />
+            <Link
+              href="/contact"
+              data-testid="btn-get-quote"
+              className="inline-flex items-center px-5 py-2.5 text-xs font-black rounded tracking-wider uppercase transition-all duration-300 hover:-translate-y-0.5"
+              style={{
+                background: "var(--clr-accent)",
+                color: "var(--clr-accent-text)",
+                boxShadow: "0 4px 16px rgba(0,0,0,0.2)",
+              }}
+            >
+              Get a Quote
+            </Link>
+          </div>
 
-          <button
-            data-testid="btn-menu-toggle"
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="lg:hidden text-white p-2"
-            aria-label="Toggle menu"
-          >
-            {menuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className="lg:hidden flex items-center gap-2">
+            <ThemeToggle />
+            <button
+              data-testid="btn-menu-toggle"
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="text-white p-2"
+              aria-label="Toggle menu"
+            >
+              {menuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </nav>
       </motion.header>
 
@@ -105,7 +115,8 @@ export default function Navbar() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="fixed inset-0 z-40 bg-[#0D1B38] flex flex-col pt-24 px-8 overflow-y-auto"
+            className="fixed inset-0 z-40 flex flex-col pt-24 px-8 overflow-y-auto"
+            style={{ background: "var(--clr-primary)" }}
           >
             <ul className="flex flex-col gap-1">
               {navLinks.map((link, i) => (
@@ -118,9 +129,11 @@ export default function Navbar() {
                   <Link
                     href={link.href}
                     data-testid={`mobile-nav-${link.label.toLowerCase()}`}
-                    className={`block text-2xl font-black py-4 border-b border-white/10 transition-colors duration-200 ${
-                      location === link.href ? "text-[#C9A84C]" : "text-white/90 hover:text-[#C9A84C]"
-                    }`}
+                    className="block text-2xl font-black py-4 border-b transition-colors duration-200"
+                    style={{
+                      borderColor: "rgba(255,255,255,0.1)",
+                      color: location === link.href ? "var(--clr-accent)" : "rgba(255,255,255,0.9)",
+                    }}
                   >
                     {link.label}
                   </Link>
@@ -130,11 +143,14 @@ export default function Navbar() {
             <Link
               href="/contact"
               data-testid="mobile-btn-get-quote"
-              className="mt-8 inline-flex items-center justify-center px-8 py-4 bg-[#C9A84C] text-[#0D1B38] text-base font-black rounded tracking-wide"
+              className="mt-8 inline-flex items-center justify-center px-8 py-4 text-base font-black rounded tracking-wide"
+              style={{ background: "var(--clr-accent)", color: "var(--clr-accent-text)" }}
             >
               Get a Quote
             </Link>
-            <div className="mt-8 text-[#C9A84C]/40 text-xs tracking-widest uppercase">Building Cities. Creating Futures.</div>
+            <div className="mt-8 text-xs tracking-widest uppercase" style={{ color: "rgba(201,168,76,0.4)" }}>
+              Building Cities. Creating Futures.
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

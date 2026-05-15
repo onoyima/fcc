@@ -200,6 +200,116 @@
  * Even without handling focused or not, this is six possible combinations that
  * need to be distinguished from eachother visually.
  */
+/* ═══════════════════════════════════════════════
+   FCC THEME SYSTEM — CSS Custom Properties
+   Set dynamically by ThemeContext.tsx
+   ═══════════════════════════════════════════════ */
+:root {
+  --clr-primary: #0D1B38;
+  --clr-primary-light: #162040;
+  --clr-primary-dark: #060D1A;
+  --clr-accent: #C9A84C;
+  --clr-accent-hover: #B8943D;
+  --clr-accent-text: #0D1B38;
+  --clr-bg: #ffffff;
+  --clr-bg-alt: #F5F7FA;
+  --clr-bg-dark: #0A1628;
+  --clr-bg-footer: #070F1F;
+  --clr-text: #111827;
+  --clr-text-muted: #6B7280;
+  --clr-text-light: #9CA3AF;
+  --clr-border: #E5E7EB;
+  --clr-card: #ffffff;
+  --clr-card-border: #F3F4F6;
+  --clr-hero-overlay: #0D1B38F0;
+  --clr-gradient: linear-gradient(135deg, #0D1B38 0%, #1a3060 50%, #0D1B38 100%);
+  --clr-gradient-accent: linear-gradient(135deg, #C9A84C 0%, #E8C870 50%, #C9A84C 100%);
+}
+
+/* Smooth theme transitions */
+*, *::before, *::after {
+  transition-property: background-color, border-color, color;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+}
+/* But NOT transform/opacity transitions globally (causes jank) */
+a, button, [class*="hover:"], [class*="group-hover:"] {
+  transition-property: background-color, border-color, color, opacity, transform, box-shadow;
+}
+
+/* FCC Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--clr-bg); }
+::-webkit-scrollbar-thumb { background: var(--clr-accent); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--clr-accent-hover); }
+
+/* Animated gradient text */
+.text-gradient-accent {
+  background: var(--clr-gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glass morphism */
+.glass {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* FCC Card hover glow */
+.card-glow:hover {
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+}
+
+/* ─── Animation keyframes ─── */
+@keyframes fcc-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+@keyframes fcc-blob {
+  0%, 100% { transform: translate(0,0) scale(1); }
+  33% { transform: translate(50px,-30px) scale(1.12); }
+  66% { transform: translate(-25px,25px) scale(0.9); }
+}
+@keyframes fcc-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes fcc-marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes fcc-shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes fcc-gradient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@keyframes fcc-pulse-ring {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  70% { transform: scale(1.15); opacity: 0; }
+  100% { transform: scale(1.15); opacity: 0; }
+}
+@keyframes fcc-wipe-in {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+/* Utility animation classes */
+.animate-fcc-float { animation: fcc-float 4s ease-in-out infinite; }
+.animate-fcc-blob { animation: fcc-blob 18s ease-in-out infinite; }
+.animate-fcc-spin { animation: fcc-spin 14s linear infinite; }
+.animate-fcc-marquee { animation: fcc-marquee 32s linear infinite; }
+.animate-fcc-gradient {
+  background-size: 200% 200%;
+  animation: fcc-gradient 8s ease infinite;
+}
+
 @layer utilities {
 
   /* Hide ugly search cancel button in Chrome until we can style it properly */

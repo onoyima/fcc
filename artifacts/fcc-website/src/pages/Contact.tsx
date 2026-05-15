@@ -3,6 +3,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Phone, Mail, MapPin, Globe, MessageCircle, Send, Clock } from "lucide-react";
+import { AnimatedBlobs, FloatingShapes } from "@/components/AnimatedBackground";
+import brandImg from "@assets/ChatGPT_Image_May_14,_2026,_11_05_45_PM_1778796680819.png";
 
 const offices = [
   { city: "Lagos (HQ)", address: "Victoria Island, Lagos, Nigeria", phone: "+234 800 100 0001" },
@@ -10,7 +12,7 @@ const offices = [
   { city: "Port Harcourt", address: "GRA Phase 2, Port Harcourt, Nigeria", phone: "+234 800 100 0003" },
 ];
 
-const services = [
+const serviceOptions = [
   "Construction & Engineering",
   "Real Estate & Property",
   "Facility & Property Management",
@@ -21,18 +23,9 @@ const services = [
 
 export default function Contact() {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    company: "",
-    service: "",
-    message: "",
+    name: "", email: "", phone: "", service: "", budget: "", message: "",
   });
   const [submitted, setSubmitted] = useState(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,247 +33,249 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen bg-white overflow-x-hidden">
+    <div style={{ background: "var(--clr-bg)" }}>
       <Navbar />
 
-      {/* Hero */}
-      <section className="bg-[#0D1B38] pt-40 pb-24 relative overflow-hidden">
-        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-48 bg-[#C9A84C]" />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
+      {/* ── HERO ─────────────────────────────────── */}
+      <section className="relative pt-32 pb-24 overflow-hidden" style={{ background: "var(--clr-primary)" }}>
+        <div className="absolute inset-0 opacity-8" style={{
+          backgroundImage: `url(${brandImg})`, backgroundSize: "cover", backgroundPosition: "center",
+        }} />
+        <div className="absolute inset-0" style={{ background: "color-mix(in srgb, var(--clr-primary) 90%, transparent)" }} />
+        <AnimatedBlobs intensity={0.05} />
+        <FloatingShapes />
+
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-10">
           <div className="flex items-center gap-3 mb-4">
-            <span className="h-px w-12 bg-[#C9A84C]" />
-            <span className="text-[#C9A84C] text-xs font-bold tracking-[0.25em] uppercase">Contact Us</span>
+            <div className="h-px w-10" style={{ background: "var(--clr-accent)" }} />
+            <span className="text-xs font-black tracking-widest uppercase" style={{ color: "var(--clr-accent)" }}>Get in Touch</span>
           </div>
-          <h1 className="text-5xl lg:text-7xl font-black text-white leading-tight max-w-3xl">
-            Let's Build<br /><span className="text-[#C9A84C]">Something</span><br />Together
+          <h1 className="text-5xl lg:text-6xl font-black text-white mb-6">
+            Let's Build<br />
+            <span style={{ color: "var(--clr-accent)" }}>Your Vision Together</span>
           </h1>
-          <p className="mt-6 text-white/60 text-lg max-w-xl leading-relaxed">
-            Whether you have a project in mind or just want to explore what FCC can do for you — our team is ready to help.
+          <p className="text-lg max-w-2xl leading-relaxed" style={{ color: "rgba(255,255,255,0.7)" }}>
+            Ready to start a project? Looking for an investment property? Need a workforce solution?
+            Our team is ready to respond within 24 hours.
           </p>
         </div>
       </section>
 
-      {/* Contact Info + Form */}
-      <section className="py-28 bg-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-5 gap-16">
-          {/* Info Panel */}
-          <div className="lg:col-span-2 space-y-10">
-            <ScrollReveal direction="left">
-              <div>
-                <h2 className="text-3xl font-black text-[#0D1B38] mb-8">Get in Touch</h2>
+      {/* ── FORM & INFO ───────────────────────── */}
+      <section className="py-24" style={{ background: "var(--clr-bg-alt)" }}>
+        <div className="max-w-7xl mx-auto px-6 lg:px-10">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            {/* Form */}
+            <div className="lg:col-span-2">
+              <ScrollReveal>
+                <div className="rounded-sm border overflow-hidden shadow-xl"
+                  style={{ background: "var(--clr-card)", borderColor: "var(--clr-border)" }}>
+                  <div className="px-8 py-5" style={{ background: "var(--clr-primary)" }}>
+                    <h2 className="text-white font-black text-xl">Send Us a Message</h2>
+                  </div>
 
-                <div className="space-y-6">
-                  <a href="https://www.forecityconstruction.com" target="_blank" rel="noreferrer" data-testid="link-website" className="flex items-start gap-4 group">
-                    <div className="w-12 h-12 rounded-sm bg-[#0D1B38] flex items-center justify-center text-[#C9A84C] flex-shrink-0 group-hover:bg-[#C9A84C] group-hover:text-[#0D1B38] transition-all duration-300">
-                      <Globe size={20} />
+                  {submitted ? (
+                    <div className="p-12 text-center">
+                      <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6"
+                        style={{ background: "var(--clr-bg-alt)" }}>
+                        <Send size={28} style={{ color: "var(--clr-accent)" }} />
+                      </div>
+                      <h3 className="text-2xl font-black mb-3" style={{ color: "var(--clr-primary)" }}>Message Sent!</h3>
+                      <p className="text-base mb-6" style={{ color: "var(--clr-text-muted)" }}>
+                        Thank you for reaching out. Our team will respond within 24 hours.
+                      </p>
+                      <button onClick={() => setSubmitted(false)}
+                        className="px-8 py-3 font-black text-sm rounded tracking-wide transition-all hover:-translate-y-0.5"
+                        style={{ background: "var(--clr-accent)", color: "var(--clr-accent-text)" }}>
+                        Send Another Message
+                      </button>
                     </div>
-                    <div>
-                      <div className="text-xs font-bold text-[#C9A84C] tracking-widest uppercase mb-1">Website</div>
-                      <div className="text-[#0D1B38] font-semibold text-sm">www.forecityconstruction.com</div>
-                    </div>
-                  </a>
+                  ) : (
+                    <form onSubmit={handleSubmit} className="p-8 space-y-5">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        {[
+                          { key: "name", label: "Full Name", placeholder: "John Doe", type: "text" },
+                          { key: "email", label: "Email Address", placeholder: "john@example.com", type: "email" },
+                        ].map((f) => (
+                          <div key={f.key}>
+                            <label className="block text-xs font-bold uppercase tracking-wide mb-2"
+                              style={{ color: "var(--clr-text)" }}>{f.label}</label>
+                            <input
+                              type={f.type}
+                              required
+                              placeholder={f.placeholder}
+                              value={formData[f.key as keyof typeof formData]}
+                              onChange={(e) => setFormData({ ...formData, [f.key]: e.target.value })}
+                              className="w-full px-4 py-3 border rounded text-sm outline-none transition-all"
+                              style={{ borderColor: "var(--clr-border)", background: "var(--clr-bg-alt)", color: "var(--clr-text)" }}
+                            />
+                          </div>
+                        ))}
+                      </div>
 
-                  <a href="mailto:info@forecityconstruction.com" data-testid="link-email" className="flex items-start gap-4 group">
-                    <div className="w-12 h-12 rounded-sm bg-[#0D1B38] flex items-center justify-center text-[#C9A84C] flex-shrink-0 group-hover:bg-[#C9A84C] group-hover:text-[#0D1B38] transition-all duration-300">
-                      <Mail size={20} />
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold text-[#C9A84C] tracking-widest uppercase mb-1">Email</div>
-                      <div className="text-[#0D1B38] font-semibold text-sm">info@forecityconstruction.com</div>
-                    </div>
-                  </a>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div>
+                          <label className="block text-xs font-bold uppercase tracking-wide mb-2"
+                            style={{ color: "var(--clr-text)" }}>Phone Number</label>
+                          <input type="tel" placeholder="+234..."
+                            value={formData.phone}
+                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                            className="w-full px-4 py-3 border rounded text-sm outline-none"
+                            style={{ borderColor: "var(--clr-border)", background: "var(--clr-bg-alt)", color: "var(--clr-text)" }} />
+                        </div>
+                        <div>
+                          <label className="block text-xs font-bold uppercase tracking-wide mb-2"
+                            style={{ color: "var(--clr-text)" }}>Service Required</label>
+                          <select
+                            value={formData.service}
+                            onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                            className="w-full px-4 py-3 border rounded text-sm outline-none"
+                            style={{ borderColor: "var(--clr-border)", background: "var(--clr-bg-alt)", color: "var(--clr-text)" }}>
+                            <option value="">Select a service</option>
+                            {serviceOptions.map((s) => <option key={s}>{s}</option>)}
+                          </select>
+                        </div>
+                      </div>
 
-                  <a href="tel:+2348001000001" data-testid="link-phone" className="flex items-start gap-4 group">
-                    <div className="w-12 h-12 rounded-sm bg-[#0D1B38] flex items-center justify-center text-[#C9A84C] flex-shrink-0 group-hover:bg-[#C9A84C] group-hover:text-[#0D1B38] transition-all duration-300">
-                      <Phone size={20} />
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold text-[#C9A84C] tracking-widest uppercase mb-1">Phone</div>
-                      <div className="text-[#0D1B38] font-semibold text-sm">+234 800 100 0001</div>
-                    </div>
-                  </a>
+                      <div>
+                        <label className="block text-xs font-bold uppercase tracking-wide mb-2"
+                          style={{ color: "var(--clr-text)" }}>Estimated Budget</label>
+                        <select
+                          value={formData.budget}
+                          onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
+                          className="w-full px-4 py-3 border rounded text-sm outline-none"
+                          style={{ borderColor: "var(--clr-border)", background: "var(--clr-bg-alt)", color: "var(--clr-text)" }}>
+                          <option value="">Select budget range</option>
+                          {["Under ₦50M", "₦50M – ₦200M", "₦200M – ₦1B", "₦1B – ₦5B", "Above ₦5B", "N/A"].map((b) => <option key={b}>{b}</option>)}
+                        </select>
+                      </div>
 
-                  <a
-                    href="https://wa.me/2348001000001"
-                    target="_blank"
-                    rel="noreferrer"
-                    data-testid="link-whatsapp"
-                    className="flex items-start gap-4 group"
-                  >
-                    <div className="w-12 h-12 rounded-sm bg-green-600 flex items-center justify-center text-white flex-shrink-0 group-hover:bg-green-500 transition-all duration-300">
-                      <MessageCircle size={20} />
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold text-[#C9A84C] tracking-widest uppercase mb-1">WhatsApp</div>
-                      <div className="text-[#0D1B38] font-semibold text-sm">Chat with us instantly</div>
-                    </div>
-                  </a>
+                      <div>
+                        <label className="block text-xs font-bold uppercase tracking-wide mb-2"
+                          style={{ color: "var(--clr-text)" }}>Project Description</label>
+                        <textarea
+                          required
+                          rows={5}
+                          placeholder="Tell us about your project, timeline, location, and any specific requirements..."
+                          value={formData.message}
+                          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                          className="w-full px-4 py-3 border rounded text-sm outline-none resize-none"
+                          style={{ borderColor: "var(--clr-border)", background: "var(--clr-bg-alt)", color: "var(--clr-text)" }}
+                        />
+                      </div>
 
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-sm bg-[#0D1B38] flex items-center justify-center text-[#C9A84C] flex-shrink-0">
-                      <Clock size={20} />
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold text-[#C9A84C] tracking-widest uppercase mb-1">Business Hours</div>
-                      <div className="text-[#0D1B38] font-semibold text-sm">Mon – Fri: 8AM – 6PM</div>
-                      <div className="text-gray-400 text-xs mt-1">Sat: 9AM – 2PM</div>
-                    </div>
+                      <button
+                        type="submit"
+                        data-testid="btn-contact-submit"
+                        className="w-full py-4 font-black text-sm rounded tracking-wide flex items-center justify-center gap-2 transition-all duration-300 hover:-translate-y-0.5"
+                        style={{ background: "var(--clr-accent)", color: "var(--clr-accent-text)" }}>
+                        <Send size={16} /> Send Message
+                      </button>
+                    </form>
+                  )}
+                </div>
+              </ScrollReveal>
+            </div>
+
+            {/* Info sidebar */}
+            <div className="space-y-6">
+              {/* Direct contacts */}
+              <ScrollReveal delay={0.15}>
+                <div className="rounded-sm border overflow-hidden"
+                  style={{ background: "var(--clr-card)", borderColor: "var(--clr-border)" }}>
+                  <div className="px-6 py-4 border-b" style={{ background: "var(--clr-bg-alt)", borderColor: "var(--clr-border)" }}>
+                    <h3 className="font-black text-sm" style={{ color: "var(--clr-primary)" }}>Direct Contacts</h3>
+                  </div>
+                  <div className="p-6 space-y-4">
+                    {[
+                      { Icon: Globe, text: "www.forecityconstruction.com" },
+                      { Icon: Mail, text: "info@forecityconstruction.com" },
+                      { Icon: Phone, text: "+234 800 100 0001" },
+                    ].map(({ Icon, text }) => (
+                      <div key={text} className="flex items-center gap-3">
+                        <Icon size={16} style={{ color: "var(--clr-accent)" }} />
+                        <span className="text-sm" style={{ color: "var(--clr-text-muted)" }}>{text}</span>
+                      </div>
+                    ))}
+                    <a href="https://wa.me/2348001000001"
+                      className="flex items-center gap-2 mt-4 py-3 px-4 rounded text-sm font-black transition-all hover:-translate-y-0.5"
+                      style={{ background: "#25D366", color: "#fff" }}>
+                      <MessageCircle size={16} /> Chat on WhatsApp
+                    </a>
                   </div>
                 </div>
-              </div>
-            </ScrollReveal>
+              </ScrollReveal>
 
-            {/* Offices */}
-            <ScrollReveal direction="left" delay={0.2}>
-              <div>
-                <h3 className="text-xl font-black text-[#0D1B38] mb-6">Our Offices</h3>
-                <div className="space-y-4">
-                  {offices.map((o) => (
-                    <div key={o.city} data-testid={`office-${o.city.toLowerCase().replace(/\s+/g, "-")}`} className="p-5 bg-[#F5F7FA] rounded-sm border border-gray-100">
-                      <div className="flex items-center gap-2 mb-2">
-                        <MapPin size={14} className="text-[#C9A84C]" />
-                        <span className="font-black text-[#0D1B38] text-sm">{o.city}</span>
-                      </div>
-                      <p className="text-gray-500 text-xs leading-relaxed">{o.address}</p>
-                      <p className="text-[#C9A84C] text-xs font-semibold mt-2">{o.phone}</p>
+              {/* Response time */}
+              <ScrollReveal delay={0.2}>
+                <div className="rounded-sm border p-6" style={{ background: "var(--clr-card)", borderColor: "var(--clr-border)" }}>
+                  <div className="flex items-center gap-2 mb-3">
+                    <Clock size={16} style={{ color: "var(--clr-accent)" }} />
+                    <h3 className="font-black text-sm" style={{ color: "var(--clr-primary)" }}>Response Times</h3>
+                  </div>
+                  {[
+                    { type: "General Enquiries", time: "< 24 hours" },
+                    { type: "Project Quotations", time: "< 48 hours" },
+                    { type: "Emergency Site Support", time: "< 2 hours" },
+                  ].map((r) => (
+                    <div key={r.type} className="flex items-center justify-between py-2 border-b last:border-0 text-xs"
+                      style={{ borderColor: "var(--clr-border)" }}>
+                      <span style={{ color: "var(--clr-text-muted)" }}>{r.type}</span>
+                      <span className="font-black" style={{ color: "var(--clr-accent)" }}>{r.time}</span>
                     </div>
                   ))}
                 </div>
-              </div>
-            </ScrollReveal>
-          </div>
+              </ScrollReveal>
 
-          {/* Contact Form */}
-          <div className="lg:col-span-3">
-            <ScrollReveal direction="right">
-              {submitted ? (
-                <div className="h-full flex flex-col items-center justify-center text-center py-24">
-                  <div className="w-20 h-20 rounded-full bg-[#C9A84C]/10 flex items-center justify-center mb-8">
-                    <Send size={32} className="text-[#C9A84C]" />
-                  </div>
-                  <h3 className="text-3xl font-black text-[#0D1B38] mb-4">Message Received!</h3>
-                  <p className="text-gray-500 max-w-sm leading-relaxed">
-                    Thank you for reaching out to FCC Fore-City Construction. Our team will contact you within 24 business hours.
-                  </p>
-                  <button
-                    data-testid="btn-send-another"
-                    onClick={() => setSubmitted(false)}
-                    className="mt-8 px-8 py-3 bg-[#0D1B38] text-white font-bold rounded text-sm tracking-wide hover:bg-[#C9A84C] hover:text-[#0D1B38] transition-all duration-300"
-                  >
-                    Send Another Message
-                  </button>
+              {/* Emergency */}
+              <ScrollReveal delay={0.25}>
+                <div className="rounded-sm border p-6" style={{ background: "rgba(239,68,68,0.05)", borderColor: "rgba(239,68,68,0.2)" }}>
+                  <h3 className="text-red-500 font-black text-sm mb-3">Site Emergency?</h3>
+                  <p className="text-xs mb-4" style={{ color: "var(--clr-text-muted)" }}>Call our 24/7 emergency line for urgent site issues.</p>
+                  <a href="tel:+2348001000099"
+                    className="flex items-center gap-2 font-black text-lg text-red-500 hover:text-red-600 transition-colors">
+                    <Phone size={18} /> +234 800 100 0099
+                  </a>
                 </div>
-              ) : (
-                <div className="bg-[#F5F7FA] rounded-sm p-10">
-                  <h2 className="text-2xl font-black text-[#0D1B38] mb-8">Send Us a Message</h2>
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      <div>
-                        <label className="block text-xs font-bold text-[#0D1B38] tracking-wide mb-2 uppercase">Full Name *</label>
-                        <input
-                          type="text"
-                          name="name"
-                          data-testid="input-name"
-                          required
-                          value={formData.name}
-                          onChange={handleChange}
-                          placeholder="John Adeyemi"
-                          className="w-full px-4 py-3 bg-white border border-gray-200 rounded text-sm text-[#0D1B38] placeholder:text-gray-400 focus:outline-none focus:border-[#C9A84C] focus:ring-1 focus:ring-[#C9A84C] transition-all duration-200"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-xs font-bold text-[#0D1B38] tracking-wide mb-2 uppercase">Email Address *</label>
-                        <input
-                          type="email"
-                          name="email"
-                          data-testid="input-email"
-                          required
-                          value={formData.email}
-                          onChange={handleChange}
-                          placeholder="john@company.com"
-                          className="w-full px-4 py-3 bg-white border border-gray-200 rounded text-sm text-[#0D1B38] placeholder:text-gray-400 focus:outline-none focus:border-[#C9A84C] focus:ring-1 focus:ring-[#C9A84C] transition-all duration-200"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      <div>
-                        <label className="block text-xs font-bold text-[#0D1B38] tracking-wide mb-2 uppercase">Phone Number</label>
-                        <input
-                          type="tel"
-                          name="phone"
-                          data-testid="input-phone"
-                          value={formData.phone}
-                          onChange={handleChange}
-                          placeholder="+234 800 000 0000"
-                          className="w-full px-4 py-3 bg-white border border-gray-200 rounded text-sm text-[#0D1B38] placeholder:text-gray-400 focus:outline-none focus:border-[#C9A84C] focus:ring-1 focus:ring-[#C9A84C] transition-all duration-200"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-xs font-bold text-[#0D1B38] tracking-wide mb-2 uppercase">Company / Organization</label>
-                        <input
-                          type="text"
-                          name="company"
-                          data-testid="input-company"
-                          value={formData.company}
-                          onChange={handleChange}
-                          placeholder="Your Company Ltd"
-                          className="w-full px-4 py-3 bg-white border border-gray-200 rounded text-sm text-[#0D1B38] placeholder:text-gray-400 focus:outline-none focus:border-[#C9A84C] focus:ring-1 focus:ring-[#C9A84C] transition-all duration-200"
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-bold text-[#0D1B38] tracking-wide mb-2 uppercase">Service Interested In</label>
-                      <select
-                        name="service"
-                        data-testid="select-service"
-                        value={formData.service}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 bg-white border border-gray-200 rounded text-sm text-[#0D1B38] focus:outline-none focus:border-[#C9A84C] focus:ring-1 focus:ring-[#C9A84C] transition-all duration-200"
-                      >
-                        <option value="">Select a service...</option>
-                        {services.map((s) => (
-                          <option key={s} value={s}>{s}</option>
-                        ))}
-                      </select>
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-bold text-[#0D1B38] tracking-wide mb-2 uppercase">Your Message *</label>
-                      <textarea
-                        name="message"
-                        data-testid="textarea-message"
-                        required
-                        value={formData.message}
-                        onChange={handleChange}
-                        rows={5}
-                        placeholder="Tell us about your project, timeline, and requirements..."
-                        className="w-full px-4 py-3 bg-white border border-gray-200 rounded text-sm text-[#0D1B38] placeholder:text-gray-400 focus:outline-none focus:border-[#C9A84C] focus:ring-1 focus:ring-[#C9A84C] transition-all duration-200 resize-none"
-                      />
-                    </div>
-
-                    <button
-                      type="submit"
-                      data-testid="btn-submit-form"
-                      className="w-full flex items-center justify-center gap-2 py-4 bg-[#0D1B38] text-white font-black rounded text-sm tracking-wide transition-all duration-300 hover:bg-[#C9A84C] hover:text-[#0D1B38] hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(13,27,56,0.25)]"
-                    >
-                      Send Message <Send size={16} />
-                    </button>
-                  </form>
-                </div>
-              )}
-            </ScrollReveal>
+              </ScrollReveal>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Map placeholder */}
-      <section className="h-80 bg-[#0D1B38] relative overflow-hidden flex items-center justify-center">
-        <div className="text-center">
-          <MapPin size={40} className="text-[#C9A84C] mx-auto mb-4" />
-          <p className="text-white/50 text-sm">10+ Office Locations Across Nigeria</p>
-          <p className="text-white/30 text-xs mt-2">Lagos | Abuja | Port Harcourt | Kano | Ibadan | Benin | Enugu | Ogun | And more</p>
+      {/* ── OFFICES ───────────────────────────── */}
+      <section className="py-24 relative overflow-hidden" style={{ background: "var(--clr-primary)" }}>
+        <AnimatedBlobs intensity={0.05} />
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-10">
+          <ScrollReveal>
+            <div className="flex items-center gap-3 mb-3">
+              <div className="h-px w-10" style={{ background: "var(--clr-accent)" }} />
+              <span className="text-xs font-black tracking-widest uppercase" style={{ color: "var(--clr-accent)" }}>Our Offices</span>
+            </div>
+            <h2 className="text-4xl font-black text-white mb-12">
+              Find Us<br /><span style={{ color: "var(--clr-accent)" }}>Across Nigeria</span>
+            </h2>
+          </ScrollReveal>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {offices.map((office, i) => (
+              <ScrollReveal key={office.city} delay={i * 0.1}>
+                <div className="p-8 rounded-sm border transition-all duration-300 hover:-translate-y-1"
+                  style={{ background: "rgba(255,255,255,0.04)", borderColor: "rgba(255,255,255,0.1)" }}>
+                  <div className="w-10 h-10 rounded-sm flex items-center justify-center mb-6"
+                    style={{ background: "var(--clr-accent)", color: "var(--clr-accent-text)" }}>
+                    <MapPin size={18} />
+                  </div>
+                  <h3 className="font-black text-white text-lg mb-2">{office.city}</h3>
+                  <p className="text-sm mb-4" style={{ color: "rgba(255,255,255,0.5)" }}>{office.address}</p>
+                  <a href={`tel:${office.phone.replace(/\s/g, "")}`}
+                    className="text-sm font-bold flex items-center gap-2 transition-colors hover:opacity-80"
+                    style={{ color: "var(--clr-accent)" }}>
+                    <Phone size={14} /> {office.phone}
+                  </a>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
       </section>
 

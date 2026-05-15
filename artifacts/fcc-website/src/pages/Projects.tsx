@@ -5,6 +5,8 @@ import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Link } from "wouter";
 import { ArrowRight, MapPin, Calendar, Building2 } from "lucide-react";
+import { AnimatedBlobs, FloatingShapes } from "@/components/AnimatedBackground";
+import brandImg from "@assets/ChatGPT_Image_May_14,_2026,_11_05_45_PM_1778796680819.png";
 
 const categories = ["All", "Residential", "Commercial", "Infrastructure", "Industrial", "Mixed Use"];
 
@@ -16,231 +18,239 @@ const projects = [
     location: "Lagos, Nigeria",
     year: "2024",
     area: "12,000 sqm",
+    budget: "₦4.2B",
     desc: "A landmark 18-storey commercial tower featuring Class-A office spaces, retail podium, and rooftop amenities in Victoria Island.",
   },
   {
-    title: "Greenfield Estate Phase 1",
+    title: "Abuja Waterfront Estate",
     category: "Residential",
-    status: "Completed",
-    location: "Abuja, Nigeria",
-    year: "2023",
-    area: "45 hectares",
-    desc: "A premium gated estate with 200 luxury residential units, club house, sports facilities, and smart home integration.",
-  },
-  {
-    title: "Central Business Hub",
-    category: "Commercial",
     status: "Ongoing",
-    location: "Port Harcourt, Nigeria",
+    location: "Abuja, Nigeria",
     year: "2025",
-    area: "8,500 sqm",
-    desc: "A mixed-use commercial complex with state-of-the-art offices, conference facilities, and ground-floor retail.",
+    area: "80 units",
+    budget: "₦2.8B",
+    desc: "A premium gated community of 80 luxury townhouses and apartments overlooking Jabi Lake, with world-class amenities.",
   },
   {
-    title: "Heritage Plaza",
-    category: "Mixed Use",
+    title: "Port Harcourt Ring Road Phase 2",
+    category: "Infrastructure",
+    status: "Completed",
+    location: "Port Harcourt, Nigeria",
+    year: "2023",
+    area: "14.5 km",
+    budget: "₦6.5B",
+    desc: "A critical urban arterial road connecting major industrial zones to the port, including 4 bridges and drainage infrastructure.",
+  },
+  {
+    title: "Kano Industrial Park",
+    category: "Industrial",
     status: "Completed",
     location: "Kano, Nigeria",
     year: "2023",
-    area: "6,200 sqm",
-    desc: "A contemporary mixed-use development blending retail, residential, and hospitality spaces in the heart of Kano.",
+    area: "22,000 sqm",
+    budget: "₦3.1B",
+    desc: "A 22-hectare integrated industrial estate housing 40+ manufacturing units with shared utilities and logistics infrastructure.",
   },
   {
-    title: "Skyline Apartments",
-    category: "Residential",
+    title: "Lekki Smart City Phase 1",
+    category: "Mixed Use",
     status: "Ongoing",
-    location: "Ibadan, Nigeria",
+    location: "Lagos, Nigeria",
     year: "2025",
-    area: "3,800 sqm",
-    desc: "A 120-unit modern apartment complex with shared amenities, underground parking, and energy-efficient systems.",
+    area: "150,000 sqm",
+    budget: "₦18B",
+    desc: "A groundbreaking smart city development integrating residential, commercial, hospitality, and tech campus zones with solar power.",
   },
   {
-    title: "Metro Road Network",
-    category: "Infrastructure",
-    status: "Completed",
-    location: "Benin City, Nigeria",
-    year: "2022",
-    area: "22 km",
-    desc: "A comprehensive urban road network project including drainage systems, street lighting, and pedestrian walkways.",
-  },
-  {
-    title: "Apex Industrial Park",
-    category: "Industrial",
-    status: "Completed",
-    location: "Ogun State, Nigeria",
-    year: "2022",
-    area: "28 hectares",
-    desc: "A fully serviced industrial estate with 50 warehouse units, power supply infrastructure, and road access.",
-  },
-  {
-    title: "University Teaching Hospital",
-    category: "Infrastructure",
+    title: "Enugu Government Secretariat",
+    category: "Commercial",
     status: "Completed",
     location: "Enugu, Nigeria",
-    year: "2021",
-    area: "18,000 sqm",
-    desc: "A 400-bed specialist hospital complex with modern operating theatres, ICU, radiology, and administrative blocks.",
+    year: "2022",
+    area: "8,400 sqm",
+    budget: "₦1.9B",
+    desc: "A modern government administrative complex with 6 connected blocks, auditorium, and green space, designed for energy efficiency.",
   },
   {
-    title: "Pearl Gardens Estate",
+    title: "Ibadan University Teaching Hospital",
+    category: "Commercial",
+    status: "Completed",
+    location: "Ibadan, Nigeria",
+    year: "2022",
+    area: "15,000 sqm",
+    budget: "₦5.6B",
+    desc: "Expansion of UCH's surgical and emergency wing including two new theatres, 240 additional beds, and diagnostic centre.",
+  },
+  {
+    title: "Lagos Island Luxury Terrace",
     category: "Residential",
-    status: "Ongoing",
-    location: "Lekki, Lagos",
-    year: "2025",
-    area: "60 hectares",
-    desc: "A smart estate development featuring 500 homes with solar integration, smart gate access, and community management platforms.",
+    status: "Completed",
+    location: "Lagos, Nigeria",
+    year: "2023",
+    area: "32 units",
+    budget: "₦1.4B",
+    desc: "Exclusive terrace homes in Ikoyi featuring bespoke interior finishes, private pools, and smart home automation systems.",
+  },
+  {
+    title: "Bonny Island Jetty & Marine Works",
+    category: "Infrastructure",
+    status: "Completed",
+    location: "Rivers State, Nigeria",
+    year: "2021",
+    area: "2.3 km waterfront",
+    budget: "₦4.8B",
+    desc: "Marine infrastructure including jetty construction, breakwater, boat terminals, and shore protection systems.",
   },
 ];
 
 export default function Projects() {
-  const [activeCategory, setActiveCategory] = useState("All");
+  const [activeFilter, setActiveFilter] = useState("All");
 
-  const filtered = projects.filter((p) =>
-    activeCategory === "All" ? true : p.category === activeCategory
-  );
+  const filtered = activeFilter === "All" ? projects : projects.filter((p) => p.category === activeFilter);
 
   return (
-    <div className="min-h-screen bg-white overflow-x-hidden">
+    <div style={{ background: "var(--clr-bg)" }}>
       <Navbar />
 
-      {/* Hero */}
-      <section className="bg-[#0D1B38] pt-40 pb-24 relative overflow-hidden">
-        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-48 bg-[#C9A84C]" />
-        <div className="absolute inset-0 opacity-[0.03]" style={{
-          backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(255,255,255,0.5) 30px, rgba(255,255,255,0.5) 31px)`
+      {/* ── HERO ─────────────────────────────────── */}
+      <section className="relative pt-32 pb-24 overflow-hidden" style={{ background: "var(--clr-primary)" }}>
+        <div className="absolute inset-0 opacity-8" style={{
+          backgroundImage: `url(${brandImg})`, backgroundSize: "cover", backgroundPosition: "center",
         }} />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
+        <div className="absolute inset-0" style={{ background: "color-mix(in srgb, var(--clr-primary) 90%, transparent)" }} />
+        <AnimatedBlobs intensity={0.05} />
+        <FloatingShapes />
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-10">
           <div className="flex items-center gap-3 mb-4">
-            <span className="h-px w-12 bg-[#C9A84C]" />
-            <span className="text-[#C9A84C] text-xs font-bold tracking-[0.25em] uppercase">Our Portfolio</span>
+            <div className="h-px w-10" style={{ background: "var(--clr-accent)" }} />
+            <span className="text-xs font-black tracking-widest uppercase" style={{ color: "var(--clr-accent)" }}>Our Portfolio</span>
           </div>
-          <h1 className="text-5xl lg:text-7xl font-black text-white leading-tight max-w-3xl">
-            Projects That<br /><span className="text-[#C9A84C]">Define Cities</span>
+          <h1 className="text-5xl lg:text-6xl font-black text-white mb-6 max-w-3xl">
+            500+ Projects.<br />
+            <span style={{ color: "var(--clr-accent)" }}>Zero Compromises.</span>
           </h1>
-          <p className="mt-6 text-white/60 text-lg max-w-xl leading-relaxed">
-            500+ completed projects across residential, commercial, industrial, and infrastructure sectors — each one a testament to FCC's commitment to excellence.
+          <p className="text-lg max-w-2xl leading-relaxed" style={{ color: "rgba(255,255,255,0.7)" }}>
+            From residential estates to national infrastructure — every project in our portfolio
+            represents a commitment to excellence, innovation, and on-time delivery.
           </p>
 
-          <div className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-2xl">
+          {/* Stats strip */}
+          <div className="flex flex-wrap gap-12 mt-12">
             {[
-              { value: "500+", label: "Projects" },
-              { value: "10+", label: "Cities" },
-              { value: "15+", label: "Years" },
-              { value: "100%", label: "Commitment" },
+              { val: "500+", label: "Projects Completed" },
+              { val: "₦200B+", label: "Total Contract Value" },
+              { val: "10+", label: "States Covered" },
+              { val: "94%", label: "On-Time Delivery Rate" },
             ].map((s) => (
               <div key={s.label}>
-                <div className="text-3xl font-black text-[#C9A84C]">{s.value}</div>
-                <div className="text-white/50 text-sm mt-1">{s.label}</div>
+                <div className="text-3xl font-black" style={{ color: "var(--clr-accent)" }}>{s.val}</div>
+                <div className="text-xs mt-1" style={{ color: "rgba(255,255,255,0.5)" }}>{s.label}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Filter */}
-      <section className="py-12 bg-[#F5F7FA] border-b border-gray-100">
+      {/* ── FILTER & GRID ─────────────────────── */}
+      <section className="py-16" style={{ background: "var(--clr-bg)" }}>
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <div className="flex flex-wrap gap-3">
+          {/* Filters */}
+          <div className="flex flex-wrap gap-2 mb-12">
             {categories.map((cat) => (
               <button
                 key={cat}
-                data-testid={`filter-${cat.toLowerCase().replace(" ", "-")}`}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-6 py-2.5 text-sm font-bold rounded transition-all duration-300 ${
-                  activeCategory === cat
-                    ? "bg-[#0D1B38] text-white"
-                    : "bg-white text-[#0D1B38] border border-gray-200 hover:border-[#C9A84C] hover:text-[#C9A84C]"
-                }`}
+                data-testid={`filter-${cat.toLowerCase().replace(/\s+/g, "-")}`}
+                onClick={() => setActiveFilter(cat)}
+                className="px-5 py-2.5 text-xs font-black rounded-sm tracking-wide uppercase transition-all duration-200 border"
+                style={activeFilter === cat ? {
+                  background: "var(--clr-primary)", color: "#fff", borderColor: "var(--clr-primary)"
+                } : {
+                  background: "transparent", color: "var(--clr-text-muted)", borderColor: "var(--clr-border)"
+                }}
               >
                 {cat}
               </button>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* Projects Grid */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeCategory}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.4 }}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-            >
-              {filtered.map((p, i) => (
+          {/* Grid */}
+          <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <AnimatePresence mode="popLayout">
+              {filtered.map((p) => (
                 <motion.div
                   key={p.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.06 }}
-                  data-testid={`card-project-${i}`}
-                  className="group bg-white rounded-sm border border-gray-100 overflow-hidden hover:shadow-[0_20px_60px_rgba(13,27,56,0.12)] transition-all duration-400 hover:-translate-y-1"
+                  layout
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.3 }}
                 >
-                  {/* Color header */}
-                  <div className="h-3 bg-[#0D1B38] group-hover:bg-[#C9A84C] transition-colors duration-500" />
-
-                  <div className="p-8">
-                    <div className="flex items-start justify-between mb-4">
-                      <span className="text-[#C9A84C] text-xs font-bold tracking-widest uppercase">{p.category}</span>
-                      <span className={`px-3 py-1 text-xs font-bold rounded-full ${
-                        p.status === "Completed"
-                          ? "bg-green-50 text-green-700 border border-green-200"
-                          : "bg-amber-50 text-amber-700 border border-amber-200"
-                      }`}>
+                  <div className="group rounded-sm border overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl h-full"
+                    style={{ background: "var(--clr-card)", borderColor: "var(--clr-border)" }}>
+                    {/* Image */}
+                    <div className="relative h-52 overflow-hidden" style={{
+                      backgroundImage: `url(${brandImg})`, backgroundSize: "cover", backgroundPosition: "center",
+                    }}>
+                      <div className="absolute inset-0 group-hover:opacity-70 transition-opacity duration-300"
+                        style={{ background: "color-mix(in srgb, var(--clr-primary) 70%, transparent)" }} />
+                      <div className="absolute top-4 left-4 px-2 py-1 text-xs font-black rounded uppercase"
+                        style={{ background: "var(--clr-accent)", color: "var(--clr-accent-text)" }}>
+                        {p.category}
+                      </div>
+                      <div className="absolute top-4 right-4 px-2 py-1 text-xs font-bold rounded border text-white"
+                        style={{
+                          background: p.status === "Completed" ? "rgba(16,185,129,0.3)" : "rgba(245,158,11,0.3)",
+                          borderColor: p.status === "Completed" ? "rgba(16,185,129,0.5)" : "rgba(245,158,11,0.5)",
+                        }}>
                         {p.status}
-                      </span>
+                      </div>
+                      <div className="absolute bottom-4 right-4 text-xl font-black text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        style={{ color: "var(--clr-accent)" }}>
+                        {p.budget}
+                      </div>
                     </div>
 
-                    <h3 className="text-xl font-black text-[#0D1B38] mb-3 group-hover:text-[#C9A84C] transition-colors duration-300">{p.title}</h3>
-                    <p className="text-gray-500 text-sm leading-relaxed mb-6">{p.desc}</p>
-
-                    <div className="grid grid-cols-2 gap-4 pt-6 border-t border-gray-100">
-                      <div className="flex items-center gap-2 text-xs text-gray-400">
-                        <MapPin size={13} className="text-[#C9A84C]" />
-                        {p.location}
+                    {/* Content */}
+                    <div className="p-6 flex flex-col h-[calc(100%-208px)]">
+                      <h3 className="font-black text-lg mb-2" style={{ color: "var(--clr-primary)" }}>{p.title}</h3>
+                      <div className="flex flex-wrap gap-4 mb-3 text-xs" style={{ color: "var(--clr-text-muted)" }}>
+                        <span className="flex items-center gap-1"><MapPin size={11} /> {p.location}</span>
+                        <span className="flex items-center gap-1"><Calendar size={11} /> {p.year}</span>
+                        <span className="flex items-center gap-1"><Building2 size={11} /> {p.area}</span>
                       </div>
-                      <div className="flex items-center gap-2 text-xs text-gray-400">
-                        <Calendar size={13} className="text-[#C9A84C]" />
-                        {p.year}
-                      </div>
-                      <div className="flex items-center gap-2 text-xs text-gray-400 col-span-2">
-                        <Building2 size={13} className="text-[#C9A84C]" />
-                        {p.area}
-                      </div>
+                      <p className="text-sm leading-relaxed mb-4 flex-1" style={{ color: "var(--clr-text-muted)" }}>{p.desc}</p>
+                      <Link href="/contact" className="inline-flex items-center gap-1 text-xs font-black group-hover:gap-2 transition-all"
+                        style={{ color: "var(--clr-accent)" }}>
+                        Enquire <ArrowRight size={12} />
+                      </Link>
                     </div>
                   </div>
                 </motion.div>
               ))}
-            </motion.div>
-          </AnimatePresence>
+            </AnimatePresence>
+          </motion.div>
 
           {filtered.length === 0 && (
-            <div className="text-center py-20 text-gray-400">
-              <p className="text-lg font-semibold">No projects in this category yet.</p>
-            </div>
+            <div className="text-center py-16" style={{ color: "var(--clr-text-muted)" }}>No projects found in this category.</div>
           )}
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-24 bg-[#0D1B38]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 text-center">
+      {/* ── CTA ───────────────────────────────── */}
+      <section className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0" style={{ background: "var(--clr-gradient)" }} />
+        <AnimatedBlobs intensity={0.07} />
+        <div className="relative max-w-4xl mx-auto px-6 text-center">
           <ScrollReveal>
-            <h2 className="text-4xl lg:text-5xl font-black text-white mb-6">
-              Your Project Could Be<br />Our Next Success Story
+            <h2 className="text-4xl font-black text-white mb-4">
+              Your Project Could Be<br /><span style={{ color: "var(--clr-accent)" }}>Our Next Masterpiece</span>
             </h2>
-            <p className="text-white/60 text-lg mb-10 max-w-xl mx-auto">
-              From a single unit to a full city district — FCC has the experience, capacity, and technology to deliver.
+            <p className="text-lg mb-8" style={{ color: "rgba(255,255,255,0.65)" }}>
+              Let's discuss your vision and turn it into an award-winning project.
             </p>
-            <Link
-              href="/contact"
-              data-testid="btn-projects-cta"
-              className="inline-flex items-center gap-2 px-10 py-5 bg-[#C9A84C] text-[#0D1B38] font-black rounded text-sm tracking-wide transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(201,168,76,0.4)]"
-            >
+            <Link href="/contact" data-testid="btn-projects-cta"
+              className="inline-flex items-center gap-2 px-10 py-4 font-black rounded text-sm tracking-wide transition-all duration-300 hover:-translate-y-1"
+              style={{ background: "var(--clr-accent)", color: "var(--clr-accent-text)" }}>
               Start a Project <ArrowRight size={16} />
             </Link>
           </ScrollReveal>

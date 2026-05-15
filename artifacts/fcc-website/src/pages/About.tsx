@@ -2,147 +2,134 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Link } from "wouter";
-import { ArrowRight, CheckCircle, ShieldCheck, Award, Users, HardHat } from "lucide-react";
+import { ArrowRight, CheckCircle, Award, Users, HardHat, Shield, Zap, Target, Heart } from "lucide-react";
+import { AnimatedBlobs, FloatingShapes, AnimatedGrid } from "@/components/AnimatedBackground";
 import logoImg from "@assets/ChatGPT_Image_May_14,_2026,_11_06_22_PM_1778796680824.png";
+import brandImg from "@assets/ChatGPT_Image_May_14,_2026,_11_05_45_PM_1778796680819.png";
 
 const values = [
-  { title: "Integrity", desc: "Transparent operations and ethical business practices in every engagement." },
-  { title: "Safety", desc: "Industry-leading safety standards protecting workforce, clients, and communities." },
-  { title: "Excellence", desc: "World-class quality enforced from materials procurement to final delivery." },
-  { title: "Innovation", desc: "Smart technology integration at every stage of construction and management." },
-  { title: "Customer Satisfaction", desc: "Dedicated support, real-time tracking, and a client-first approach." },
-  { title: "Accountability", desc: "We own every timeline, commitment, and outcome — no exceptions." },
+  { icon: <Shield size={22} />, title: "Integrity", desc: "Transparent operations and ethical business practices in every engagement." },
+  { icon: <Target size={22} />, title: "Safety", desc: "Industry-leading safety standards protecting workforce, clients, and communities." },
+  { icon: <Award size={22} />, title: "Excellence", desc: "World-class quality enforced from materials procurement to final delivery." },
+  { icon: <Zap size={22} />, title: "Innovation", desc: "Smart technology integration at every stage of construction and management." },
+  { icon: <Heart size={22} />, title: "Customer Focus", desc: "Dedicated support, real-time tracking, and a client-first approach." },
+  { icon: <CheckCircle size={22} />, title: "Accountability", desc: "We own every timeline, commitment, and outcome — no exceptions." },
 ];
 
 const leadership = [
   { name: "Afolabi Adeyemi", role: "Group Managing Director", initials: "AA" },
   { name: "Engr. Chukwuemeka Obi", role: "Director of Engineering", initials: "CO" },
   { name: "Mrs. Ngozi Adeleke", role: "Director of Real Estate", initials: "NA" },
-  { name: "Alhaji Musa Garba", role: "Director of Operations", initials: "MG" },
-];
-
-const milestones = [
-  { year: "2008", event: "FCC Founded in Lagos, Nigeria" },
-  { year: "2012", event: "Expanded into real estate and property management" },
-  { year: "2016", event: "Launched estate development division" },
-  { year: "2019", event: "Introduced smart construction technology platform" },
-  { year: "2022", event: "Expanded to 10+ cities across Nigeria" },
-  { year: "2025", event: "Launched integrated digital property management ecosystem" },
+  { name: "Arc. Ibrahim Musa", role: "Chief Architect", initials: "IM" },
+  { name: "Barr. Tunde Fashola", role: "Legal & Compliance Director", initials: "TF" },
+  { name: "Mrs. Amara Eze", role: "Head of Operations", initials: "AE" },
 ];
 
 const certifications = [
-  { title: "COREN Registered", body: "Council for the Regulation of Engineering in Nigeria" },
-  { title: "CORBON Member", body: "Quantity Surveyors Registration Board of Nigeria" },
-  { title: "ISO 9001:2015", body: "Quality Management Systems Certified" },
-  { title: "NIQS Member", body: "Nigerian Institution of Quantity Surveyors" },
-  { title: "ARCON Registered", body: "Architects Registration Council of Nigeria" },
-  { title: "NESREA Compliant", body: "Environmental Impact Assessment Certified" },
+  { code: "COREN", name: "Council for the Regulation of Engineering in Nigeria", year: "2008" },
+  { code: "CORBON", name: "Council of Registered Builders of Nigeria", year: "2009" },
+  { code: "ISO 9001", name: "Quality Management System Certification", year: "2015" },
+  { code: "NIQS", name: "Nigerian Institute of Quantity Surveyors", year: "2010" },
+  { code: "ARCON", name: "Architects Registration Council of Nigeria", year: "2011" },
+  { code: "NESREA", name: "National Environmental Standards & Regulations", year: "2016" },
 ];
 
-const safetyStandards = [
-  "Mandatory Personal Protective Equipment (PPE) on all sites",
-  "Daily toolbox meetings and safety briefings before work begins",
-  "Weekly site safety inspections by dedicated HSE officers",
-  "Zero-tolerance policy for safety violations",
-  "Fire safety and emergency evacuation plans on every site",
-  "First aid kits and trained personnel on all active sites",
-  "Regular equipment inspection and maintenance schedules",
-  "ISO-compliant incident reporting and investigation procedures",
+const timeline = [
+  { year: "2009", event: "FCC founded in Lagos — first residential project delivered in Surulere." },
+  { year: "2012", event: "Expanded to Abuja and Port Harcourt. Workforce reached 200+ professionals." },
+  { year: "2015", event: "ISO 9001 certification achieved. Launched Real Estate division." },
+  { year: "2018", event: "Completed first government infrastructure contract — Lekki access road." },
+  { year: "2021", event: "Property Marketplace launched. 5,000+ properties sold to date." },
+  { year: "2024", event: "1,000+ workforce. 500+ completed projects. Expanding to East & West Africa." },
 ];
 
 const workforce = [
-  { role: "Engineers & Architects", count: "200+", icon: <HardHat size={24} /> },
-  { role: "Skilled Artisans", count: "500+", icon: <Users size={24} /> },
-  { role: "Project Managers", count: "50+", icon: <Award size={24} /> },
-  { role: "Site Supervisors", count: "100+", icon: <ShieldCheck size={24} /> },
+  { count: "200+", label: "Civil & Structural Engineers" },
+  { count: "150+", label: "Licensed Architects" },
+  { count: "500+", label: "Certified Artisans" },
+  { count: "80+", label: "Project Managers" },
+  { count: "120+", label: "Real Estate Agents" },
+  { count: "50+", label: "Safety Officers" },
 ];
 
 export default function About() {
   return (
-    <div className="min-h-screen bg-white overflow-x-hidden">
+    <div style={{ background: "var(--clr-bg)" }}>
       <Navbar />
 
-      {/* Hero */}
-      <section className="bg-[#0D1B38] pt-40 pb-24 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.03]" style={{
-          backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(255,255,255,0.5) 60px, rgba(255,255,255,0.5) 61px), repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(255,255,255,0.5) 60px, rgba(255,255,255,0.5) 61px)`
+      {/* ── HERO ─────────────────────────────────── */}
+      <section className="relative pt-32 pb-24 overflow-hidden" style={{ background: "var(--clr-primary)" }}>
+        <div className="absolute inset-0 opacity-8" style={{
+          backgroundImage: `url(${brandImg})`, backgroundSize: "cover", backgroundPosition: "center",
         }} />
-        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-48 bg-[#C9A84C]" />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
+        <div className="absolute inset-0" style={{ background: "color-mix(in srgb, var(--clr-primary) 92%, transparent)" }} />
+        <AnimatedBlobs intensity={0.05} />
+        <FloatingShapes />
+
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-10">
           <div className="flex items-center gap-3 mb-4">
-            <span className="h-px w-12 bg-[#C9A84C]" />
-            <span className="text-[#C9A84C] text-xs font-bold tracking-[0.25em] uppercase">About Us</span>
+            <div className="h-px w-10" style={{ background: "var(--clr-accent)" }} />
+            <span className="text-xs font-black tracking-widest uppercase" style={{ color: "var(--clr-accent)" }}>Our Story</span>
           </div>
-          <h1 className="text-5xl lg:text-7xl font-black text-white leading-tight max-w-3xl">
-            We Build More Than<br /><span className="text-[#C9A84C]">Structures</span>
+          <h1 className="text-5xl lg:text-6xl font-black text-white mb-6 max-w-3xl">
+            Building Africa,<br />
+            <span style={{ color: "var(--clr-accent)" }}>One Project at a Time</span>
           </h1>
-          <p className="mt-6 text-white/60 text-lg max-w-xl leading-relaxed">
-            FCC Fore-City Construction is an integrated construction, real estate, and property technology company — building Africa's cities, one project at a time.
+          <p className="text-lg max-w-2xl leading-relaxed" style={{ color: "rgba(255,255,255,0.7)" }}>
+            FCC Fore-City Construction is Nigeria's most integrated built-environment company — delivering construction, real estate,
+            property management, interior design, and workforce solutions under one powerful brand.
           </p>
         </div>
       </section>
 
-      {/* Mission & Vision */}
-      <section className="py-28 bg-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <ScrollReveal direction="left">
-            <div>
-              <div className="flex items-center gap-3 mb-6">
-                <span className="h-px w-12 bg-[#C9A84C]" />
-                <span className="text-[#C9A84C] text-xs font-bold tracking-[0.25em] uppercase">Our Purpose</span>
-              </div>
-              <h2 className="text-4xl font-black text-[#0D1B38] mb-8">Mission & Vision</h2>
-
-              <div className="mb-8 p-8 border-l-4 border-[#C9A84C] bg-[#F5F7FA] rounded-r-sm">
-                <h3 className="font-black text-[#0D1B38] mb-3 text-lg">Our Vision</h3>
-                <p className="text-gray-600 leading-relaxed">
-                  To become one of Africa's leading smart construction and real estate companies — transforming cities, communities, and the built environment through innovation and excellence.
-                </p>
-              </div>
-
-              <div className="p-8 border-l-4 border-[#0D1B38] bg-[#F5F7FA] rounded-r-sm">
-                <h3 className="font-black text-[#0D1B38] mb-3 text-lg">Our Mission</h3>
-                <p className="text-gray-600 leading-relaxed">
-                  To deliver innovative construction, infrastructure, real estate, and property management solutions with professionalism, transparency, and technology — creating lasting value for clients, communities, and stakeholders.
-                </p>
-              </div>
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal direction="right">
-            <div className="relative">
-              <div className="absolute -top-4 -right-4 w-full h-full border-2 border-[#C9A84C]/20 rounded-sm" />
-              <img src={logoImg} alt="FCC Logo Variations" className="relative z-10 rounded-sm w-full object-cover bg-gray-50 p-8" />
-            </div>
-          </ScrollReveal>
+      {/* ── MISSION & VISION ──────────────────── */}
+      <section className="py-24" style={{ background: "var(--clr-bg-alt)" }}>
+        <div className="max-w-7xl mx-auto px-6 lg:px-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {[
+              { label: "Our Mission", icon: <Target size={24} />, text: "To deliver world-class construction and real estate solutions that transform communities, empower clients, and build sustainable urban environments across Africa." },
+              { label: "Our Vision", icon: <Zap size={24} />, text: "To be Africa's most trusted, innovative, and impactful integrated property and construction company — building cities that last for generations." },
+            ].map((item, i) => (
+              <ScrollReveal key={item.label} delay={i * 0.15}>
+                <div className="p-10 rounded-sm border h-full relative overflow-hidden transition-all duration-300 hover:shadow-xl"
+                  style={{ background: "var(--clr-card)", borderColor: "var(--clr-border)" }}>
+                  <div className="w-12 h-12 rounded-sm flex items-center justify-center mb-6"
+                    style={{ background: "var(--clr-primary)", color: "var(--clr-accent)" }}>
+                    {item.icon}
+                  </div>
+                  <h3 className="text-2xl font-black mb-4" style={{ color: "var(--clr-primary)" }}>{item.label}</h3>
+                  <p className="text-base leading-relaxed" style={{ color: "var(--clr-text-muted)" }}>{item.text}</p>
+                  <div className="absolute bottom-0 left-0 h-1 w-full" style={{ background: "var(--clr-gradient-accent)" }} />
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Core Values */}
-      <section className="py-28 bg-[#0D1B38] relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.03]" style={{
-          backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(255,255,255,0.5) 30px, rgba(255,255,255,0.5) 31px)`
-        }} />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
+      {/* ── CORE VALUES ───────────────────────── */}
+      <section className="py-24 relative overflow-hidden" style={{ background: "var(--clr-bg)" }}>
+        <div className="max-w-7xl mx-auto px-6 lg:px-10">
           <ScrollReveal>
-            <div className="text-center mb-16">
-              <div className="flex items-center justify-center gap-3 mb-4">
-                <span className="h-px w-12 bg-[#C9A84C]" />
-                <span className="text-[#C9A84C] text-xs font-bold tracking-[0.25em] uppercase">What Drives Us</span>
-                <span className="h-px w-12 bg-[#C9A84C]" />
-              </div>
-              <h2 className="text-4xl lg:text-5xl font-black text-white">Core Values</h2>
+            <div className="flex items-center gap-3 mb-3">
+              <div className="h-px w-10" style={{ background: "var(--clr-accent)" }} />
+              <span className="text-xs font-black tracking-widest uppercase" style={{ color: "var(--clr-accent)" }}>Our Values</span>
             </div>
+            <h2 className="text-4xl font-black mb-16" style={{ color: "var(--clr-primary)" }}>
+              What Drives Us<br /><span style={{ color: "var(--clr-accent)" }}>Every Single Day</span>
+            </h2>
           </ScrollReveal>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {values.map((v, i) => (
               <ScrollReveal key={v.title} delay={i * 0.1}>
-                <div className="group p-8 border border-white/10 rounded-sm hover:border-[#C9A84C]/40 hover:bg-white/5 transition-all duration-300">
-                  <div className="flex items-center gap-3 mb-4">
-                    <CheckCircle size={20} className="text-[#C9A84C]" />
-                    <h3 className="font-black text-white text-lg">{v.title}</h3>
+                <div className="p-8 rounded-sm border group transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                  style={{ background: "var(--clr-card)", borderColor: "var(--clr-border)" }}>
+                  <div className="w-12 h-12 rounded-sm flex items-center justify-center mb-5 transition-all duration-300 group-hover:scale-110"
+                    style={{ background: "var(--clr-bg-alt)", color: "var(--clr-accent)" }}>
+                    {v.icon}
                   </div>
-                  <p className="text-white/50 text-sm leading-relaxed">{v.desc}</p>
+                  <h4 className="font-black text-lg mb-2" style={{ color: "var(--clr-primary)" }}>{v.title}</h4>
+                  <p className="text-sm leading-relaxed" style={{ color: "var(--clr-text-muted)" }}>{v.desc}</p>
                 </div>
               </ScrollReveal>
             ))}
@@ -150,30 +137,35 @@ export default function About() {
         </div>
       </section>
 
-      {/* Certifications */}
-      <section className="py-28 bg-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10">
+      {/* ── CERTIFICATIONS ────────────────────── */}
+      <section className="py-24 relative overflow-hidden" style={{ background: "var(--clr-primary)" }}>
+        <AnimatedBlobs intensity={0.05} />
+        <AnimatedGrid opacity={0.03} />
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-10">
           <ScrollReveal>
-            <div className="text-center mb-16">
-              <div className="flex items-center justify-center gap-3 mb-4">
-                <span className="h-px w-12 bg-[#C9A84C]" />
-                <span className="text-[#C9A84C] text-xs font-bold tracking-[0.25em] uppercase">Credentials</span>
-                <span className="h-px w-12 bg-[#C9A84C]" />
-              </div>
-              <h2 className="text-4xl lg:text-5xl font-black text-[#0D1B38]">Certifications & Accreditations</h2>
-              <p className="mt-4 text-gray-500 max-w-xl mx-auto">FCC operates to the highest professional and regulatory standards, with full compliance across all business divisions.</p>
+            <div className="flex items-center gap-3 mb-3">
+              <div className="h-px w-10" style={{ background: "var(--clr-accent)" }} />
+              <span className="text-xs font-black tracking-widest uppercase" style={{ color: "var(--clr-accent)" }}>Accreditations</span>
             </div>
+            <h2 className="text-4xl font-black text-white mb-4">
+              Certified &<br /><span style={{ color: "var(--clr-accent)" }}>Internationally Accredited</span>
+            </h2>
+            <p className="text-base mb-16 max-w-xl" style={{ color: "rgba(255,255,255,0.6)" }}>
+              Our certifications are not just badges — they are proof of our commitment to international quality and safety standards.
+            </p>
           </ScrollReveal>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {certifications.map((cert, i) => (
-              <ScrollReveal key={cert.title} delay={i * 0.09}>
-                <div data-testid={`cert-${i}`} className="flex items-start gap-5 p-6 bg-[#F5F7FA] rounded-sm border border-gray-100 hover:border-[#C9A84C]/30 hover:shadow-sm transition-all duration-300">
-                  <div className="w-12 h-12 rounded-sm bg-[#0D1B38] flex items-center justify-center flex-shrink-0">
-                    <Award size={22} className="text-[#C9A84C]" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {certifications.map((c, i) => (
+              <ScrollReveal key={c.code} delay={i * 0.08}>
+                <div className="p-6 rounded-sm border flex items-start gap-4 transition-all duration-300 hover:border-opacity-50"
+                  style={{ background: "rgba(255,255,255,0.04)", borderColor: "rgba(255,255,255,0.1)" }}>
+                  <div className="w-14 h-14 rounded-sm flex-shrink-0 flex items-center justify-center text-xs font-black text-center leading-tight"
+                    style={{ background: "var(--clr-accent)", color: "var(--clr-accent-text)" }}>
+                    {c.code}
                   </div>
                   <div>
-                    <h3 className="font-black text-[#0D1B38] mb-1">{cert.title}</h3>
-                    <p className="text-gray-500 text-xs leading-relaxed">{cert.body}</p>
+                    <div className="text-white font-bold text-sm mb-1">{c.name}</div>
+                    <div className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>Since {c.year}</div>
                   </div>
                 </div>
               </ScrollReveal>
@@ -182,74 +174,25 @@ export default function About() {
         </div>
       </section>
 
-      {/* Safety Standards */}
-      <section className="py-28 bg-[#F5F7FA]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <ScrollReveal direction="left">
-            <div>
-              <div className="flex items-center gap-3 mb-6">
-                <span className="h-px w-12 bg-[#C9A84C]" />
-                <span className="text-[#C9A84C] text-xs font-bold tracking-[0.25em] uppercase">Health & Safety</span>
-              </div>
-              <h2 className="text-4xl font-black text-[#0D1B38] mb-6">Our Safety Standards</h2>
-              <p className="text-gray-600 leading-relaxed mb-8">
-                At FCC, safety is not a department — it's a culture. We operate a Zero Harm philosophy across all our sites, enforced by dedicated HSE (Health, Safety & Environment) officers and supported by continuous training programs.
-              </p>
-              <div className="space-y-3">
-                {safetyStandards.map((s, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <ShieldCheck size={16} className="text-[#C9A84C] mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-600 text-sm">{s}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal direction="right" delay={0.15}>
-            <div className="grid grid-cols-2 gap-5">
-              {[
-                { label: "Zero Harm", sub: "Our safety philosophy", color: "bg-[#0D1B38]" },
-                { label: "100%", sub: "PPE compliance on sites", color: "bg-[#C9A84C]" },
-                { label: "HSE Trained", sub: "All site supervisors", color: "bg-[#C9A84C]" },
-                { label: "ISO Compliant", sub: "Safety management systems", color: "bg-[#0D1B38]" },
-              ].map((s, i) => (
-                <div key={i} className={`${s.color} rounded-sm p-8 flex flex-col justify-between aspect-square`}>
-                  <ShieldCheck size={28} className={s.color === "bg-[#0D1B38]" ? "text-[#C9A84C]" : "text-[#0D1B38]"} />
-                  <div>
-                    <div className={`text-2xl font-black ${s.color === "bg-[#0D1B38]" ? "text-white" : "text-[#0D1B38]"}`}>{s.label}</div>
-                    <div className={`text-xs mt-1 ${s.color === "bg-[#0D1B38]" ? "text-white/50" : "text-[#0D1B38]/60"}`}>{s.sub}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* Workforce Showcase */}
-      <section className="py-20 bg-white">
+      {/* ── WORKFORCE SHOWCASE ────────────────── */}
+      <section className="py-24" style={{ background: "var(--clr-bg-alt)" }}>
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
           <ScrollReveal>
-            <div className="text-center mb-12">
-              <div className="flex items-center justify-center gap-3 mb-4">
-                <span className="h-px w-12 bg-[#C9A84C]" />
-                <span className="text-[#C9A84C] text-xs font-bold tracking-[0.25em] uppercase">Our People</span>
-                <span className="h-px w-12 bg-[#C9A84C]" />
-              </div>
-              <h2 className="text-4xl font-black text-[#0D1B38]">Workforce Showcase</h2>
-              <p className="mt-4 text-gray-500 max-w-xl mx-auto">Our team of 1,000+ professionals is our greatest asset — skilled, safety-trained, and committed to excellence.</p>
+            <div className="flex items-center gap-3 mb-3">
+              <div className="h-px w-10" style={{ background: "var(--clr-accent)" }} />
+              <span className="text-xs font-black tracking-widest uppercase" style={{ color: "var(--clr-accent)" }}>Our Workforce</span>
             </div>
+            <h2 className="text-4xl font-black mb-16" style={{ color: "var(--clr-primary)" }}>
+              1,000+ Professionals.<br /><span style={{ color: "var(--clr-accent)" }}>One Unstoppable Team.</span>
+            </h2>
           </ScrollReveal>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
             {workforce.map((w, i) => (
-              <ScrollReveal key={w.role} delay={i * 0.1}>
-                <div className="text-center p-8 bg-[#F5F7FA] rounded-sm border border-gray-100 hover:border-[#C9A84C]/30 hover:-translate-y-1 hover:shadow-md transition-all duration-300 group">
-                  <div className="w-16 h-16 rounded-full bg-[#0D1B38] flex items-center justify-center mx-auto mb-5 text-[#C9A84C] group-hover:bg-[#C9A84C] group-hover:text-[#0D1B38] transition-all duration-300">
-                    {w.icon}
-                  </div>
-                  <div className="text-3xl font-black text-[#0D1B38] mb-1">{w.count}</div>
-                  <div className="text-gray-500 text-sm font-semibold">{w.role}</div>
+              <ScrollReveal key={w.label} delay={i * 0.08}>
+                <div className="text-center p-6 rounded-sm border transition-all duration-300 hover:-translate-y-1"
+                  style={{ background: "var(--clr-card)", borderColor: "var(--clr-border)" }}>
+                  <div className="text-3xl font-black mb-1" style={{ color: "var(--clr-accent)" }}>{w.count}</div>
+                  <div className="text-xs leading-tight" style={{ color: "var(--clr-text-muted)" }}>{w.label}</div>
                 </div>
               </ScrollReveal>
             ))}
@@ -257,61 +200,56 @@ export default function About() {
         </div>
       </section>
 
-      {/* Timeline */}
-      <section className="py-28 bg-[#F5F7FA]">
-        <div className="max-w-5xl mx-auto px-6 lg:px-10">
+      {/* ── TIMELINE ──────────────────────────── */}
+      <section className="py-24 relative overflow-hidden" style={{ background: "var(--clr-bg)" }}>
+        <div className="max-w-4xl mx-auto px-6 lg:px-10">
           <ScrollReveal>
-            <div className="text-center mb-16">
-              <div className="flex items-center justify-center gap-3 mb-4">
-                <span className="h-px w-12 bg-[#C9A84C]" />
-                <span className="text-[#C9A84C] text-xs font-bold tracking-[0.25em] uppercase">Our Journey</span>
-                <span className="h-px w-12 bg-[#C9A84C]" />
-              </div>
-              <h2 className="text-4xl lg:text-5xl font-black text-[#0D1B38]">Company History</h2>
+            <div className="flex items-center gap-3 mb-3">
+              <div className="h-px w-10" style={{ background: "var(--clr-accent)" }} />
+              <span className="text-xs font-black tracking-widest uppercase" style={{ color: "var(--clr-accent)" }}>Our Journey</span>
             </div>
+            <h2 className="text-4xl font-black mb-16" style={{ color: "var(--clr-primary)" }}>15 Years of<br /><span style={{ color: "var(--clr-accent)" }}>Building Excellence</span></h2>
           </ScrollReveal>
           <div className="relative">
-            <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-[#C9A84C]/30" />
-            {milestones.map((m, i) => (
-              <ScrollReveal key={m.year} delay={i * 0.1}>
-                <div className={`relative flex items-center gap-8 mb-12 ${i % 2 === 0 ? "flex-row" : "flex-row-reverse"}`}>
-                  <div className={`flex-1 ${i % 2 === 0 ? "text-right" : "text-left"}`}>
-                    <div className="inline-block bg-white rounded-sm border border-gray-100 shadow-sm p-6">
-                      <div className="text-[#C9A84C] text-2xl font-black mb-2">{m.year}</div>
-                      <div className="text-[#0D1B38] font-semibold text-sm">{m.event}</div>
+            <div className="absolute left-[72px] top-0 bottom-0 w-px" style={{ background: "var(--clr-border)" }} />
+            <div className="space-y-10">
+              {timeline.map((t, i) => (
+                <ScrollReveal key={t.year} delay={i * 0.1}>
+                  <div className="flex items-start gap-8">
+                    <div className="flex-shrink-0 w-[72px] text-right">
+                      <span className="text-sm font-black" style={{ color: "var(--clr-accent)" }}>{t.year}</span>
                     </div>
+                    <div className="relative flex-shrink-0 w-3 h-3 rounded-full mt-1 border-2"
+                      style={{ background: "var(--clr-accent)", borderColor: "var(--clr-accent)" }} />
+                    <p className="text-sm leading-relaxed pt-0.5" style={{ color: "var(--clr-text-muted)" }}>{t.event}</p>
                   </div>
-                  <div className="flex-shrink-0 w-5 h-5 rounded-full bg-[#C9A84C] border-4 border-white shadow z-10" />
-                  <div className="flex-1" />
-                </div>
-              </ScrollReveal>
-            ))}
+                </ScrollReveal>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Leadership */}
-      <section className="py-28 bg-white">
+      {/* ── LEADERSHIP ────────────────────────── */}
+      <section className="py-24" style={{ background: "var(--clr-bg-alt)" }}>
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
           <ScrollReveal>
-            <div className="text-center mb-16">
-              <div className="flex items-center justify-center gap-3 mb-4">
-                <span className="h-px w-12 bg-[#C9A84C]" />
-                <span className="text-[#C9A84C] text-xs font-bold tracking-[0.25em] uppercase">Leadership</span>
-                <span className="h-px w-12 bg-[#C9A84C]" />
-              </div>
-              <h2 className="text-4xl lg:text-5xl font-black text-[#0D1B38]">Meet Our Team</h2>
+            <div className="flex items-center gap-3 mb-3">
+              <div className="h-px w-10" style={{ background: "var(--clr-accent)" }} />
+              <span className="text-xs font-black tracking-widest uppercase" style={{ color: "var(--clr-accent)" }}>Leadership</span>
             </div>
+            <h2 className="text-4xl font-black mb-16" style={{ color: "var(--clr-primary)" }}>Meet the <span style={{ color: "var(--clr-accent)" }}>Team</span></h2>
           </ScrollReveal>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
             {leadership.map((l, i) => (
-              <ScrollReveal key={l.name} delay={i * 0.1}>
-                <div data-testid={`card-leader-${i}`} className="text-center group">
-                  <div className="w-28 h-28 rounded-full bg-[#0D1B38] flex items-center justify-center mx-auto mb-6 text-3xl font-black text-[#C9A84C] transition-all duration-300 group-hover:bg-[#C9A84C] group-hover:text-[#0D1B38]">
+              <ScrollReveal key={l.name} delay={i * 0.08}>
+                <div className="text-center group">
+                  <div className="w-20 h-20 rounded-full flex items-center justify-center text-2xl font-black text-white mx-auto mb-4 transition-transform duration-300 group-hover:scale-110"
+                    style={{ background: "var(--clr-gradient)" }}>
                     {l.initials}
                   </div>
-                  <h3 className="font-black text-[#0D1B38] text-lg">{l.name}</h3>
-                  <p className="text-[#C9A84C] text-xs font-semibold mt-1 tracking-wide">{l.role}</p>
+                  <div className="font-black text-sm" style={{ color: "var(--clr-primary)" }}>{l.name}</div>
+                  <div className="text-xs mt-1" style={{ color: "var(--clr-text-muted)" }}>{l.role}</div>
                 </div>
               </ScrollReveal>
             ))}
@@ -319,17 +257,22 @@ export default function About() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 bg-[#0D1B38]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 flex flex-col sm:flex-row items-center justify-between gap-8">
-          <ScrollReveal direction="left">
-            <h2 className="text-3xl lg:text-4xl font-black text-white">Ready to partner with us?</h2>
-          </ScrollReveal>
-          <ScrollReveal direction="right">
+      {/* ── CTA ───────────────────────────────── */}
+      <section className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0" style={{ background: "var(--clr-gradient)" }} />
+        <AnimatedBlobs intensity={0.07} />
+        <div className="relative max-w-4xl mx-auto px-6 text-center">
+          <ScrollReveal>
+            <h2 className="text-4xl font-black text-white mb-4">
+              Let's Build Something<br /><span style={{ color: "var(--clr-accent)" }}>Great Together</span>
+            </h2>
+            <p className="text-lg mb-8" style={{ color: "rgba(255,255,255,0.65)" }}>
+              Whether you're starting a new project or looking to invest in real estate, FCC is ready.
+            </p>
             <Link href="/contact" data-testid="btn-about-cta"
-              className="flex-shrink-0 inline-flex items-center gap-2 px-8 py-4 bg-[#C9A84C] text-[#0D1B38] font-bold rounded text-sm tracking-wide transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_32px_rgba(201,168,76,0.4)]"
-            >
-              Get in Touch <ArrowRight size={16} />
+              className="inline-flex items-center gap-2 px-10 py-4 font-black rounded text-sm tracking-wide transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+              style={{ background: "var(--clr-accent)", color: "var(--clr-accent-text)" }}>
+              Contact Us Today <ArrowRight size={16} />
             </Link>
           </ScrollReveal>
         </div>

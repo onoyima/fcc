@@ -30,12 +30,15 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer className="bg-[#070F1F] text-white/60 border-t border-white/10">
+    <footer className="border-t" style={{ background: "var(--clr-bg-footer)", borderColor: "rgba(255,255,255,0.08)" }}>
+      {/* Gradient accent line */}
+      <div className="h-1 w-full" style={{ background: "var(--clr-gradient-accent)" }} />
+
       <div className="max-w-7xl mx-auto px-6 lg:px-10 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           <div className="lg:col-span-1">
             <img src={logoImg} alt="FCC Fore-City Construction" className="h-12 w-auto object-contain mb-6 brightness-0 invert" />
-            <p className="text-sm leading-relaxed mb-6">
+            <p className="text-sm leading-relaxed mb-6" style={{ color: "rgba(255,255,255,0.5)" }}>
               One company. Endless possibilities. Building cities and creating futures across Africa with world-class construction, real estate, and infrastructure solutions.
             </p>
             <div className="flex gap-3 flex-wrap">
@@ -44,7 +47,16 @@ export default function Footer() {
                   key={i}
                   href={href}
                   data-testid={`social-icon-${i}`}
-                  className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-white/40 hover:border-[#C9A84C] hover:text-[#C9A84C] transition-all duration-300"
+                  className="w-8 h-8 rounded-full border flex items-center justify-center transition-all duration-300"
+                  style={{ borderColor: "rgba(255,255,255,0.2)", color: "rgba(255,255,255,0.4)" }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.borderColor = "var(--clr-accent)";
+                    (e.currentTarget as HTMLElement).style.color = "var(--clr-accent)";
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.2)";
+                    (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.4)";
+                  }}
                 >
                   <Icon size={14} />
                 </a>
@@ -53,11 +65,15 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-white font-black mb-6 text-xs tracking-widest uppercase">Our Divisions</h3>
+            <h3 className="font-black mb-6 text-xs tracking-widest uppercase text-white">Our Divisions</h3>
             <ul className="space-y-3">
               {divisions.map((d) => (
-                <li key={d} className="text-sm hover:text-[#C9A84C] transition-colors duration-200 cursor-pointer flex items-center gap-2">
-                  <span className="w-1 h-1 rounded-full bg-[#C9A84C] flex-shrink-0" />
+                <li key={d} className="text-sm flex items-center gap-2 cursor-default transition-colors duration-200"
+                  style={{ color: "rgba(255,255,255,0.5)" }}
+                  onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.color = "var(--clr-accent)"}
+                  onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.5)"}
+                >
+                  <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: "var(--clr-accent)" }} />
                   {d}
                 </li>
               ))}
@@ -65,17 +81,18 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-white font-black mb-6 text-xs tracking-widest uppercase">Quick Links</h3>
+            <h3 className="font-black mb-6 text-xs tracking-widest uppercase text-white">Quick Links</h3>
             <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
                     data-testid={`footer-link-${link.label.toLowerCase().replace(/\s+/g, "-")}`}
-                    className="text-sm hover:text-[#C9A84C] transition-colors duration-200 flex items-center gap-2 group"
+                    className="text-sm flex items-center gap-2 group transition-colors duration-200"
+                    style={{ color: "rgba(255,255,255,0.5)" }}
                   >
-                    <span className="w-0 h-px bg-[#C9A84C] group-hover:w-4 transition-all duration-300" />
-                    {link.label}
+                    <span className="w-0 h-px transition-all duration-300 group-hover:w-4" style={{ background: "var(--clr-accent)" }} />
+                    <span className="group-hover:text-white transition-colors">{link.label}</span>
                   </Link>
                 </li>
               ))}
@@ -83,43 +100,41 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-white font-black mb-6 text-xs tracking-widest uppercase">Contact</h3>
+            <h3 className="font-black mb-6 text-xs tracking-widest uppercase text-white">Contact</h3>
             <ul className="space-y-4">
-              <li className="flex items-start gap-3 text-sm">
-                <Globe size={14} className="text-[#C9A84C] mt-0.5 flex-shrink-0" />
-                <span>www.forecityconstruction.com</span>
-              </li>
-              <li className="flex items-start gap-3 text-sm">
-                <Mail size={14} className="text-[#C9A84C] mt-0.5 flex-shrink-0" />
-                <span>info@forecityconstruction.com</span>
-              </li>
-              <li className="flex items-start gap-3 text-sm">
-                <Phone size={14} className="text-[#C9A84C] mt-0.5 flex-shrink-0" />
-                <span>+234 800 100 0001</span>
-              </li>
-              <li className="flex items-start gap-3 text-sm">
-                <MapPin size={14} className="text-[#C9A84C] mt-0.5 flex-shrink-0" />
-                <span>Lagos | Abuja | Port Harcourt<br />10+ Cities Across Nigeria</span>
-              </li>
+              {[
+                { Icon: Globe, text: "www.forecityconstruction.com" },
+                { Icon: Mail, text: "info@forecityconstruction.com" },
+                { Icon: Phone, text: "+234 800 100 0001" },
+                { Icon: MapPin, text: "Lagos | Abuja | Port Harcourt\n10+ Cities Across Nigeria" },
+              ].map(({ Icon, text }, i) => (
+                <li key={i} className="flex items-start gap-3 text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
+                  <Icon size={14} className="mt-0.5 flex-shrink-0" style={{ color: "var(--clr-accent)" }} />
+                  <span className="whitespace-pre-line">{text}</span>
+                </li>
+              ))}
             </ul>
 
-            {/* Emergency */}
-            <div className="mt-6 p-4 border border-red-500/20 rounded-sm bg-red-500/5">
+            <div className="mt-6 p-4 border rounded-sm" style={{ borderColor: "rgba(239,68,68,0.2)", background: "rgba(239,68,68,0.05)" }}>
               <div className="text-red-400 text-xs font-black tracking-widest uppercase mb-1">Emergency Line</div>
               <a href="tel:+2348001000099" className="text-white text-sm font-bold hover:text-red-400 transition-colors">+234 800 100 0099</a>
-              <div className="text-white/30 text-xs mt-0.5">24 / 7 Site Emergency</div>
+              <div className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.3)" }}>24/7 Site Emergency</div>
             </div>
           </div>
         </div>
 
-        <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-white/30">
+        <div className="mt-16 pt-8 border-t flex flex-col md:flex-row items-center justify-between gap-4" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
+          <p className="text-xs" style={{ color: "rgba(255,255,255,0.25)" }}>
             &copy; {new Date().getFullYear()} FCC Fore-City Construction. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
-            <span className="text-white/20 text-xs hover:text-white/40 transition-colors cursor-pointer">Privacy Policy</span>
-            <span className="text-white/20 text-xs hover:text-white/40 transition-colors cursor-pointer">Terms of Service</span>
-            <span className="text-[#C9A84C] text-xs font-black tracking-widest uppercase">Building Cities. Creating Futures.</span>
+            {["Privacy Policy", "Terms of Service"].map((t) => (
+              <span key={t} className="text-xs cursor-pointer transition-colors duration-200 hover:text-white"
+                style={{ color: "rgba(255,255,255,0.25)" }}>{t}</span>
+            ))}
+            <span className="text-xs font-black tracking-widest uppercase" style={{ color: "var(--clr-accent)" }}>
+              Building Cities. Creating Futures.
+            </span>
           </div>
         </div>
       </div>

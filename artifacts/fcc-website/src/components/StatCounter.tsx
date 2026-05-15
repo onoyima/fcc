@@ -47,12 +47,13 @@ export default function StatCounter({ value, suffix = "+", label, icon }: StatCo
   }, [started, value]);
 
   return (
-    <div ref={ref} className="text-center" data-testid={`stat-${label.toLowerCase().replace(/\s+/g, "-")}`}>
-      <div className="flex justify-center mb-3 text-[#C9A84C]">{icon}</div>
+    <div ref={ref} className="text-center group" data-testid={`stat-${label.toLowerCase().replace(/\s+/g, "-")}`}>
+      <div className="flex justify-center mb-3 transition-transform duration-300 group-hover:scale-110"
+        style={{ color: "var(--clr-accent)" }}>{icon}</div>
       <div className="text-4xl lg:text-5xl font-black text-white mb-2 tabular-nums">
         {count.toLocaleString()}{suffix}
       </div>
-      <div className="text-sm text-white/60 font-medium tracking-wide">{label}</div>
+      <div className="text-sm font-medium tracking-wide" style={{ color: "rgba(255,255,255,0.55)" }}>{label}</div>
     </div>
   );
 }
