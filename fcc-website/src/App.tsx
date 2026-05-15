@@ -13,6 +13,7 @@ import Properties from "@/pages/Properties";
 import Careers from "@/pages/Careers";
 import Contact from "@/pages/Contact";
 import Gallery from "@/pages/Gallery";
+import Team from "@/pages/Team";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import LiveChat from "@/components/LiveChat";
 
@@ -29,6 +30,7 @@ function Router() {
       <Route path="/careers" component={Careers} />
       <Route path="/contact" component={Contact} />
       <Route path="/gallery" component={Gallery} />
+      <Route path="/team" component={Team} />
       <Route component={NotFound} />
     </Switch>
   );

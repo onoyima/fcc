@@ -19,6 +19,7 @@ export default function Navbar() {
     { href: "/projects", label: t.nav.projects },
     { href: "/properties", label: t.nav.properties },
     { href: "/gallery", label: "Gallery" },
+    { href: "/team", label: t.nav.team },
     { href: "/careers", label: t.nav.careers },
     { href: "/contact", label: t.nav.contact },
   ];

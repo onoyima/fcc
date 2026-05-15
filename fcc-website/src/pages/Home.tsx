@@ -11,6 +11,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import PropertySearch from "@/components/PropertySearch";
 import ConstructionCalculator from "@/components/ConstructionCalculator";
 import HeroSlider from "@/components/HeroSlider";
+import ImageSlider from "@/components/ImageSlider";
 import ParticleBackground from "@/components/ParticleBackground";
 import { AnimatedBlobs, AnimatedGrid, FloatingShapes } from "@/components/AnimatedBackground";
 import brandImg from "@assets/ChatGPT_Image_May_14,_2026,_11_05_45_PM_1778796680819.png";
@@ -26,10 +27,30 @@ const testimonials = [
 const clients = ["NNPC", "Access Bank", "Dangote Group", "Julius Berger", "Emaar", "LASG", "FG Works", "Shell Nigeria"];
 
 const featuredProperties = [
-  { id: 1, title: "Lekki Pearl Estate — 4 Bed Duplex", type: "For Sale", location: "Lekki, Lagos", price: "₦85,000,000", beds: 4, baths: 4, sqm: 320, tag: "New Listing" },
-  { id: 6, title: "Gwarimpa — 5 Bed Smart Villa", type: "For Sale", location: "Gwarimpa, Abuja", price: "₦120,000,000", beds: 5, baths: 6, sqm: 500, tag: "Smart Home" },
-  { id: 9, title: "Banana Island — Penthouse", type: "For Sale", location: "Banana Island, Lagos", price: "₦950,000,000", beds: 6, baths: 7, sqm: 750, tag: "Ultra Luxury" },
-  { id: 2, title: "Maitama Executive Apartment", type: "For Rent", location: "Maitama, Abuja", price: "₦8,500,000/yr", beds: 3, baths: 3, sqm: 180, tag: "Premium" },
+  { id: 1, title: "Lekki Pearl Estate — 4 Bed Duplex", type: "For Sale", location: "Lekki, Lagos", price: "₦85,000,000", beds: 4, baths: 4, sqm: 320, tag: "New Listing",
+    imgs: [
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
+      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
+      "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=800&q=80",
+    ] },
+  { id: 6, title: "Gwarimpa — 5 Bed Smart Villa", type: "For Sale", location: "Gwarimpa, Abuja", price: "₦120,000,000", beds: 5, baths: 6, sqm: 500, tag: "Smart Home",
+    imgs: [
+      "https://images.unsplash.com/photo-1600573472591-ee6c68e14fbe?w=800&q=80",
+      "https://images.unsplash.com/photo-1618220179428-22790b461013?w=800&q=80",
+      "https://images.unsplash.com/photo-1600566753086-00f18f6b5d26?w=800&q=80",
+    ] },
+  { id: 9, title: "Banana Island — Penthouse", type: "For Sale", location: "Banana Island, Lagos", price: "₦950,000,000", beds: 6, baths: 7, sqm: 750, tag: "Ultra Luxury",
+    imgs: [
+      "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80",
+      "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80",
+      "https://images.unsplash.com/photo-1600585154084-4e5fe7c39198?w=800&q=80",
+    ] },
+  { id: 2, title: "Maitama Executive Apartment", type: "For Rent", location: "Maitama, Abuja", price: "₦8,500,000/yr", beds: 3, baths: 3, sqm: 180, tag: "Premium",
+    imgs: [
+      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
+      "https://images.unsplash.com/photo-1600566753086-00f18f6b5d26?w=800&q=80",
+    ] },
 ];
 
 export default function Home() {
@@ -212,19 +233,23 @@ export default function Home() {
               <ScrollReveal key={p.id} delay={i * 0.1}>
                 <Link href="/properties" className="group block rounded-sm border overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl h-full"
                   style={{ background: "var(--clr-card)", borderColor: "var(--clr-border)" }}>
-                  <div className="relative h-48 overflow-hidden" style={{
-                    backgroundImage: `url(${brandImg})`, backgroundSize: "cover", backgroundPosition: "center",
-                  }}>
-                    <div className="absolute inset-0 transition-opacity duration-300 group-hover:opacity-60"
-                      style={{ background: "color-mix(in srgb, var(--clr-primary) 60%, transparent)" }} />
-                    {p.tag && (
-                      <div className="absolute top-3 left-3 px-2 py-1 text-[10px] font-black rounded uppercase"
-                        style={{ background: "var(--clr-accent)", color: "var(--clr-accent-text)" }}>
-                        {p.tag}
-                      </div>
-                    )}
-                    <div className="absolute bottom-3 left-3 text-xl font-black text-white">{p.price}</div>
-                  </div>
+                  <ImageSlider
+                    images={p.imgs}
+                    className="h-48 w-full"
+                    overlay={
+                      <>
+                        <div className="absolute inset-0 transition-opacity duration-300 group-hover:opacity-60 pointer-events-none"
+                          style={{ background: "color-mix(in srgb, var(--clr-primary) 60%, transparent)" }} />
+                        {p.tag && (
+                          <div className="absolute top-3 left-3 px-2 py-1 text-[10px] font-black rounded uppercase z-10"
+                            style={{ background: "var(--clr-accent)", color: "var(--clr-accent-text)" }}>
+                            {p.tag}
+                          </div>
+                        )}
+                        <div className="absolute bottom-3 left-3 text-xl font-black text-white z-10">{p.price}</div>
+                      </>
+                    }
+                  />
                   <div className="p-4">
                     <div className="px-2 py-0.5 text-[10px] font-black rounded inline-block mb-2"
                       style={{ background: "var(--clr-bg-alt)", color: "var(--clr-accent)" }}>
@@ -331,18 +356,20 @@ export default function Home() {
               <ScrollReveal key={p.title} delay={i * 0.1}>
                 <div className="group rounded-sm overflow-hidden border transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
                   style={{ background: "var(--clr-card)", borderColor: "var(--clr-border)" }}>
-                  <div className="relative overflow-hidden h-52">
-                    <img
-                      src={p.imgs[0]}
-                      alt={p.title}
-                      className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0" style={{ background: "color-mix(in srgb, var(--clr-primary) 50%, transparent)" }} />
-                    <div className="absolute top-4 left-4 px-2 py-1 text-xs font-black rounded uppercase"
-                      style={{ background: "var(--clr-accent)", color: "var(--clr-accent-text)" }}>{p.cat}</div>
-                    <div className="absolute bottom-4 right-4 px-2 py-1 text-xs font-bold rounded border text-white"
-                      style={{ borderColor: "rgba(255,255,255,0.3)", background: "rgba(0,0,0,0.4)" }}>{p.status}</div>
-                  </div>
+                  <ImageSlider
+                    images={p.imgs}
+                    className="h-52 w-full"
+                    overlay={
+                      <>
+                        <div className="absolute inset-0 transition-opacity duration-300 group-hover:opacity-60 pointer-events-none"
+                          style={{ background: "color-mix(in srgb, var(--clr-primary) 50%, transparent)" }} />
+                        <div className="absolute top-4 left-4 px-2 py-1 text-xs font-black rounded uppercase z-10"
+                          style={{ background: "var(--clr-accent)", color: "var(--clr-accent-text)" }}>{p.cat}</div>
+                        <div className="absolute bottom-4 right-4 px-2 py-1 text-xs font-bold rounded border text-white z-10"
+                          style={{ borderColor: "rgba(255,255,255,0.3)", background: "rgba(0,0,0,0.4)" }}>{p.status}</div>
+                      </>
+                    }
+                  />
                   <div className="p-6">
                     <h3 className="font-black text-lg mb-2" style={{ color: "var(--clr-primary)" }}>{p.title}</h3>
                     <div className="flex gap-4 text-xs mb-4" style={{ color: "var(--clr-text-muted)" }}>
