@@ -290,7 +290,7 @@ export default function Properties() {
                           style={{ borderColor: "var(--clr-primary)", color: "var(--clr-primary)" }}>
                           {t.properties.bookInspection}
                         </button>
-                        <a href="tel:+2348001000001"
+                        <a href="tel:+2348068515179"
                           className="flex items-center justify-center w-10 h-10 rounded border transition-all duration-200 hover:-translate-y-0.5"
                           style={{ borderColor: "var(--clr-border)", color: "var(--clr-text-muted)" }}>
                           <Phone size={14} />

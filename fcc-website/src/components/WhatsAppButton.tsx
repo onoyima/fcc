@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { MessageCircle, X } from "lucide-react";
 
-const PHONE = "2348001000001";
+const PHONE = "2348068515179";
 const MESSAGE = "Hello! I'm interested in FCC Fore-City Construction services.";
 
 export default function WhatsAppButton() {

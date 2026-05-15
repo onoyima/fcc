@@ -200,7 +200,7 @@ export default function Contact() {
                         <span className="text-sm" style={{ color: "var(--clr-text-muted)" }}>{text}</span>
                       </div>
                     ))}
-                    <a href="https://wa.me/2348001000001"
+                    <a href="https://wa.me/2348068515179"
                       className="flex items-center gap-2 mt-4 py-3 px-4 rounded text-sm font-black transition-all hover:-translate-y-0.5"
                       style={{ background: "#25D366", color: "#fff" }}>
                       <MessageCircle size={16} /> Chat on WhatsApp

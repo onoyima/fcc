@@ -1,16 +1,33 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
-import logoImg from "@assets/ChatGPT_Image_May_14,_2026,_11_06_01_PM_1778796680823.png";
+import { Menu, X, Shield } from "lucide-react";
+import yeloowLogo from "@assets/yeloow_logo.png";
+import blueYellowLogo from "@assets/blue_yellow.png";
+import blueYelllowWhiteLogo from "@assets/blue_yelllow_white.png";
 import ThemeToggle from "@/components/ThemeToggle";
 import { useLang } from "@/contexts/LanguageContext";
+import { useAdminAuth } from "@/contexts/AdminAuthContext";
+import { useTheme } from "@/contexts/ThemeContext";
+
+const logoMap: Record<string, string> = {
+  navy: blueYellowLogo,
+  orange: yeloowLogo,
+  brown: yeloowLogo,
+  emerald: yeloowLogo,
+  purple: blueYelllowWhiteLogo,
+  rose: yeloowLogo,
+  teal: blueYelllowWhiteLogo,
+};
 
 export default function Navbar() {
   const { t } = useLang();
+  const { isAuthenticated } = useAdminAuth();
+  const { theme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [location] = useLocation();
+  const logoSrc = logoMap[theme] || blueYellowLogo;
 
   const navLinks = [
     { href: "/", label: t.nav.home },
@@ -53,8 +70,11 @@ export default function Navbar() {
         }}
       >
         <nav className="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-20">
-          <Link href="/" data-testid="link-logo">
-            <img src={logoImg} alt="FCC Fore-City Construction" className="h-11 w-auto object-contain" />
+          <Link href="/" data-testid="link-logo" className="flex items-center gap-3">
+            <img src={logoSrc} alt="FCC Fore-City Construction" className="h-11 w-auto object-contain" />
+            <span className="text-lg font-black tracking-tight text-white max-sm:hidden">
+              Fore-City<span className="text-[var(--clr-accent)]"> Construction</span>
+            </span>
           </Link>
 
           <ul className="hidden lg:flex items-center gap-6">
@@ -83,6 +103,16 @@ export default function Navbar() {
           </ul>
 
           <div className="hidden lg:flex items-center gap-3">
+            {isAuthenticated && (
+              <Link
+                href="/admin"
+                className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all"
+                style={{ background: "rgba(255,255,255,0.08)", color: "var(--clr-accent)" }}
+              >
+                <Shield size={12} />
+                Admin
+              </Link>
+            )}
             <ThemeToggle />
             <Link
               href="/contact"
