@@ -8,7 +8,7 @@ import brandImg from "@assets/ChatGPT_Image_May_14,_2026,_11_05_45_PM_1778796680
 import { useLang } from "@/contexts/LanguageContext";
 
 const offices = [
-  { city: "Lagos (HQ)", address: "Victoria Island, Lagos, Nigeria", phone: "+234 800 100 0001" },
+  { city: "Lagos (HQ)", address: "Victoria Island, Lagos, Nigeria", phone: "+234 806 851 5179" },
   { city: "Abuja", address: "Central Business District, Abuja, Nigeria", phone: "+234 800 100 0002" },
   { city: "Port Harcourt", address: "GRA Phase 2, Port Harcourt, Nigeria", phone: "+234 800 100 0003" },
 ];
@@ -193,7 +193,7 @@ export default function Contact() {
                     {[
                       { Icon: Globe, text: "www.forecityconstruction.com" },
                       { Icon: Mail, text: "info@forecityconstruction.com" },
-                      { Icon: Phone, text: "+234 800 100 0001" },
+                      { Icon: Phone, text: "+234 806 851 5179" },
                     ].map(({ Icon, text }) => (
                       <div key={text} className="flex items-center gap-3">
                         <Icon size={16} style={{ color: "var(--clr-accent)" }} />
@@ -235,7 +235,7 @@ export default function Contact() {
                   <p className="text-xs mb-4" style={{ color: "var(--clr-text-muted)" }}>{t.contact.siteEmergencyDesc}</p>
                   <a href="tel:+2348001000099"
                     className="flex items-center gap-2 font-black text-lg text-red-500 hover:text-red-600 transition-colors">
-                    <Phone size={18} /> +234 800 100 0099
+                    <Phone size={18} /> +234 806 851 5179
                   </a>
                 </div>
               </ScrollReveal>

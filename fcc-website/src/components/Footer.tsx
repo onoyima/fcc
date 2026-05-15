@@ -1,18 +1,33 @@
 import { Link } from "wouter";
 import { Globe, Phone, Mail, MapPin, Facebook, Twitter, Linkedin, Instagram, Youtube } from "lucide-react";
-import logoImg from "@assets/ChatGPT_Image_May_14,_2026,_11_06_01_PM_1778796680823.png";
+import { useTheme } from "@/contexts/ThemeContext";
 import { useLang } from "@/contexts/LanguageContext";
+import yeloowLogo from "@assets/yeloow_logo.png";
+import blueYellowLogo from "@assets/blue_yellow.png";
+import blueYelllowWhiteLogo from "@assets/blue_yelllow_white.png";
 
 const socials = [
-  { Icon: Facebook, href: "#" },
+  { Icon: Facebook, href: "https://www.facebook.com/100083161541044/?http_ref=eyJ0cyI6MTc3ODg1NjM1NzAwMCwiciI6IiJ9" },
   { Icon: Twitter, href: "#" },
   { Icon: Linkedin, href: "#" },
   { Icon: Instagram, href: "#" },
   { Icon: Youtube, href: "#" },
 ];
 
+const logoMap: Record<string, string> = {
+  navy: blueYellowLogo,
+  orange: yeloowLogo,
+  brown: yeloowLogo,
+  emerald: yeloowLogo,
+  purple: blueYelllowWhiteLogo,
+  rose: yeloowLogo,
+  teal: blueYelllowWhiteLogo,
+};
+
 export default function Footer() {
   const { t } = useLang();
+  const { theme } = useTheme();
+  const logoSrc = logoMap[theme] || blueYellowLogo;
 
   const divisions = t.services.divisionNames;
 
@@ -33,7 +48,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 lg:px-10 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           <div className="lg:col-span-1">
-            <img src={logoImg} alt="FCC Fore-City Construction" className="h-12 w-auto object-contain mb-6 brightness-0 invert" />
+            <img src={logoSrc} alt="FCC Fore-City Construction" className="h-12 w-auto object-contain mb-6" />
             <p className="text-sm leading-relaxed mb-6" style={{ color: "rgba(255,255,255,0.5)" }}>
               {t.footer.tagline}
             </p>
@@ -101,7 +116,7 @@ export default function Footer() {
               {[
                 { Icon: Globe, text: "www.forecityconstruction.com" },
                 { Icon: Mail, text: "info@forecityconstruction.com" },
-                { Icon: Phone, text: "+234 800 100 0001" },
+                { Icon: Phone, text: "+234 806 851 5179" },
                 { Icon: MapPin, text: "Lagos | Abuja | Port Harcourt\n10+ Cities Across Nigeria" },
               ].map(({ Icon, text }, i) => (
                 <li key={i} className="flex items-start gap-3 text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>

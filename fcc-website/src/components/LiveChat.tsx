@@ -17,11 +17,11 @@ const responses: Record<string, string> = {
   realestate:
     "Our Real Estate division connects buyers, investors, and developers to opportunities in Nigeria's fastest-growing cities. We handle land sales, property sales, leasing, and investment advisory.",
   property: "We have premium properties for sale and rent across Lagos, Abuja, Port Harcourt, and more. Visit our Properties page to browse current listings!",
-  pricing: "Our pricing varies by project scope and requirements. Please use the Contact form to request a customized quote, or call us at +234 800 100 0001.",
+  pricing: "Our pricing varies by project scope and requirements. Please use the Contact form to request a customized quote, or call us at +234 806 851 5179.",
   location: "We have offices in Lagos (HQ), Abuja, and Port Harcourt. Visit our Contact page for full details and directions.",
   careers:
     "We're hiring! Check our Careers page for open positions across Engineering, Construction, Real Estate, Technology, and more. We also welcome artisan and contractor registrations.",
-  timing: "Our team typically responds to enquiries within 24 hours. For urgent matters, call our emergency line at +234 800 100 0099.",
+  timing: "Our team typically responds to enquiries within 24 hours. For urgent matters, call our emergency line at +234 806 851 5179.",
 };
 
 function getBotResponse(input: string): string {
@@ -41,7 +41,7 @@ function getBotResponse(input: string): string {
     return responses.careers;
   if (lower.includes("time") || lower.includes("hour") || lower.includes("when") || lower.includes("emergency"))
     return responses.timing;
-  return "Thank you for reaching out! For specific enquiries, please use our Contact form or call +234 800 100 0001. A team member will get back to you shortly.";
+  return "Thank you for reaching out! For specific enquiries, please use our Contact form or call +234 806 851 5179. A team member will get back to you shortly.";
 }
 
 export default function LiveChat() {
