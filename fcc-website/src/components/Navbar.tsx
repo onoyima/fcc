@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Shield } from "lucide-react";
+import { Menu, X, Shield, LogIn } from "lucide-react";
 import yeloowLogo from "@assets/yeloow_logo.png";
 import blueYellowLogo from "@assets/blue_yellow.png";
 import blueYelllowWhiteLogo from "@assets/blue_yelllow_white.png";
@@ -103,7 +103,7 @@ export default function Navbar() {
           </ul>
 
           <div className="hidden lg:flex items-center gap-3">
-            {isAuthenticated && (
+            {isAuthenticated ? (
               <Link
                 href="/admin"
                 className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all"
@@ -111,6 +111,15 @@ export default function Navbar() {
               >
                 <Shield size={12} />
                 Admin
+              </Link>
+            ) : (
+              <Link
+                href="/admin/login"
+                className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all"
+                style={{ background: "rgba(255,255,255,0.08)", color: "var(--clr-accent)" }}
+              >
+                <LogIn size={12} />
+                Login
               </Link>
             )}
             <ThemeToggle />
